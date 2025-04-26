@@ -12,6 +12,12 @@
         {
           "origin": "https://n"
         }
+      ],
+      [
+        "expo-font",
+        {
+          "fonts": ["./src/assets/fonts/Nunito-VariableFont_wght.ttf"]
+        }
       ]
     ],
     "name": "lifecore",

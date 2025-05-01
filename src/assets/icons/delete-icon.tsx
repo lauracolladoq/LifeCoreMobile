@@ -4,12 +4,14 @@ import Svg, { Path } from "react-native-svg";
 function DeleteIcon() {
   return (
     <Svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
+      width={24}
+      height={24}
       viewBox="0 0 24 24"
+      fill="none"
+      stroke="black" 
       strokeWidth={1.5}
-      stroke="black"
-      className="size-6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     >
       <Path
         strokeLinecap="round"

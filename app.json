@@ -18,6 +18,17 @@
         {
           "fonts": ["./src/assets/fonts/Nunito-VariableFont_wght.ttf"]
         }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "deploymentTarget": "15.1"
+          },
+          "android": {
+            "minSdkVersion": 21
+          }
+        }
       ]
     ],
     "name": "lifecore",

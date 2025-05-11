@@ -1,12 +1,6 @@
-import React from 'react';
-import {Text, View } from "react-native";
+import React from "react";
+import RegisterScreen from "@/screens/RegisterScreen";
 
-const Register = () => {
-    return (
-        <View>
-            <Text>Register Page</Text>
-        </View>
-    );
-};
-
-export default Register; 
+export default function Register() {
+  return <RegisterScreen />;
+}

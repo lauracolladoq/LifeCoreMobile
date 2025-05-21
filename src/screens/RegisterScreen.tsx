@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert, StyleSheet, View, AppState } from "react-native";
+import { View, Alert, AppState } from "react-native";
 import { supabase } from "../lib/supabase";
 import CustomButton from "../components/CustomButton";
 import CustomText from "@/components/texts/CustomText";
@@ -8,8 +8,8 @@ import Container from "@/components/Container";
 import CustomInput from "@/components/CustomInput";
 import EmailIcon from "@/assets/icons/email-icon";
 import LockIcon from "@/assets/icons/lock-icon";
+import { Link, useRouter } from "expo-router";
 
-// email name username password confirmdPAssword
 AppState.addEventListener("change", (state) => {
   if (state === "active") {
     supabase.auth.startAutoRefresh();
@@ -21,89 +21,195 @@ AppState.addEventListener("change", (state) => {
 export default function RegisterScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const [usernameError, setUsernameError] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [generalError, setGeneralError] = useState("");
+  const router = useRouter();
+  const { data } = supabase.storage.from('profile-picture').getPublicUrl('avatar.png');
 
-  async function signInWithEmail() {
-    setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
-    });
+  // Validation functions
+  const validateEmail = (email) =>
+    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+  const validatePassword = (password) => password.length >= 6;
+  const validateConfirmPassword = (password, confirmPassword) =>
+    password === confirmPassword;
+  const validateUsername = (username) => username.trim().length >= 3;
+  const validateName = (name) => name.trim().length >= 3;
+  // const validateUsernameUnique = async (username) => {
+  //   const { data, error } = await supabase
+  //     .from("profiles")
+  //     .select()
+  //     .eq("username", username);
+  // };
 
-    if (error) Alert.alert(error.message);
-    setLoading(false);
-  }
+  const resetForm = () => {
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+    setUsername("");
+    setName("");
+    setEmailError("");
+    setPasswordError("");
+    setConfirmPasswordError("");
+    setUsernameError("");
+    setNameError("");
+    setGeneralError("");
+  };
 
   async function signUpWithEmail() {
     setLoading(true);
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-    });
+    setEmailError("");
+    setPasswordError("");
+    setConfirmPasswordError("");
+    setUsernameError("");
+    setNameError("");
+    setGeneralError("");
 
-    if (error) Alert.alert(error.message);
-    // if (!session) Alert.alert('Please check your inbox for email verification!')
-    setLoading(false);
+    if (!validateEmail(email)) {
+      setEmailError("Please enter a valid email.");
+      setLoading(false);
+      return;
+    }
+    if (!validatePassword(password)) {
+      setPasswordError("Password must be at least 6 characters.");
+      setLoading(false);
+      return;
+    }
+    if (!validateConfirmPassword(password, confirmPassword)) {
+      setConfirmPasswordError("Passwords do not match.");
+      setLoading(false);
+      return;
+    }
+    if (!validateUsername(username)) {
+      setUsernameError("Username must be at least 3 characters.");
+      setLoading(false);
+      return;
+    }
+    if (!validateName(name)) {
+      setNameError("Name must be at least 3 characters.");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      // Create user in auth.users
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email,
+        password,
+      });
+
+      if (authError || !authData.user) {
+        setGeneralError(authError?.message || "Failed to create user.");
+        setLoading(false);
+        return;
+      }
+
+      const userId = authData.user.id;
+
+      // Create profile in public.profiles after the user has been created in auth
+      const { error: profileError } = await supabase.from("profiles").insert({
+        id: userId,
+        name,
+        username,
+        avatar: data.publicUrl,
+      });
+
+      Alert.alert("Success", "Account created successfully!");
+      resetForm();
+      router.push("/home");
+    } catch (err) {
+      setGeneralError(err.message);
+      setLoading(false);
+    }
   }
 
   return (
     <Container>
-      <CustomText className="text-4xl font-bold">
-        Create an account
-      </CustomText>
-      <View className="flex-row mt-8">
-        <CustomText className="text-xl font-medium mr-2">
-          Don't have an account yet?
-        </CustomText>
-        <CustomText className="text-xl font-medium color-[#4cb2e5]">
-          Register here
-        </CustomText>
+      <CustomText className="text-xl font-bold">Create an account</CustomText>
+      <View className="flex-row mt-6">
+        <CustomText className="mr-2">Already have an account?</CustomText>
+        <Link href="/auth/login">
+          <CustomText className="color-[#4cb2e5]">Log in</CustomText>
+        </Link>
       </View>
-      <View className="mt-16">
+      <View className="mt-10">
+        <View className="mb-6">
+          <CustomInput
+            label="Name"
+            onChangeText={setName}
+            value={name}
+            placeholder="Enter your full name"
+            autoCapitalize="words"
+          />
+          {nameError && <ErrorText>{nameError}</ErrorText>}
+        </View>
+        <View className="mb-6">
+          <CustomInput
+            label="Username"
+            onChangeText={setUsername}
+            value={username}
+            placeholder="Enter your username"
+            autoCapitalize="none"
+          />
+          {usernameError && <ErrorText>{usernameError}</ErrorText>}
+        </View>
         <View className="mb-6">
           <CustomInput
             label="Email"
-            onChangeText={(text) => setEmail(text)}
+            onChangeText={setEmail}
             value={email}
             placeholder="Enter your email"
-            autoCapitalize={"none"}
+            autoCapitalize="none"
             icon={<EmailIcon />}
           />
-          <ErrorText>Testing </ErrorText>
+          {emailError && <ErrorText>{emailError}</ErrorText>}
         </View>
         <View className="mb-6">
           <CustomInput
             label="Password"
-            onChangeText={(text) => setPassword(text)}
+            onChangeText={setPassword}
             value={password}
-            secureTextEntry={true}
+            secureTextEntry
             placeholder="Enter your password"
-            autoCapitalize={"none"}
+            autoCapitalize="none"
             icon={<LockIcon />}
           />
-          <ErrorText>Testing </ErrorText>
+          {passwordError && <ErrorText>{passwordError}</ErrorText>}
+        </View>
+        <View className="mb-6">
+          <CustomInput
+            label="Confirm Password"
+            onChangeText={setConfirmPassword}
+            value={confirmPassword}
+            secureTextEntry
+            placeholder="Confirm your password"
+            autoCapitalize="none"
+            icon={<LockIcon />}
+          />
+          {confirmPasswordError && (
+            <ErrorText>{confirmPasswordError}</ErrorText>
+          )}
         </View>
       </View>
-      <View className="mt-8">
+      <View className="mt-10">
         <CustomButton
-          title="Log in"
+          title="Register"
           disabled={loading}
-          onPress={() => signInWithEmail()}
+          onPress={signUpWithEmail}
         />
       </View>
-      <CustomText className="text-center mt-16 color-gray-400">
-        or continue with
-      </CustomText>
-      {/* <View style={styles.verticallySpaced}>
-        <CustomButton
-          title="Sign up"
-          disabled={loading}
-          onPress={() => signUpWithEmail()}
-        />
-      </View> */}
+      {generalError && (
+        <CustomText className="text-center mt-4 color-red-500">
+          {generalError}
+        </CustomText>
+      )}
     </Container>
   );
 }

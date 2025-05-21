@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert, View, AppState } from "react-native";
+import { View, AppState } from "react-native";
 import { supabase } from "../lib/supabase";
 import CustomButton from "../components/CustomButton";
 import CustomText from "@/components/texts/CustomText";
@@ -8,7 +8,7 @@ import Container from "@/components/Container";
 import CustomInput from "@/components/CustomInput";
 import EmailIcon from "@/assets/icons/email-icon";
 import LockIcon from "@/assets/icons/lock-icon";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 
 AppState.addEventListener("change", (state) => {
   if (state === "active") {
@@ -18,7 +18,7 @@ AppState.addEventListener("change", (state) => {
   }
 });
 
-export default function LogIn() {
+export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -26,13 +26,19 @@ export default function LogIn() {
   const [passwordError, setPasswordError] = useState("");
   const [generalError, setGeneralError] = useState("");
 
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return emailRegex.test(email);
-  };
+  const router = useRouter();
 
-  const validatePassword = (password: string) => {
-    return password.length >= 6;
+  // Validation functions
+    const validateEmail = (email) =>
+    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+  const validatePassword = (password) => password.length >= 6;
+
+  const resetForm = () => {
+    setEmail("");
+    setPassword("");
+    setEmailError("");
+    setPasswordError("");
+    setGeneralError("");
   };
 
   async function signInWithEmail() {
@@ -41,7 +47,6 @@ export default function LogIn() {
     setPasswordError("");
     setGeneralError("");
 
-    // Validaciones
     if (!validateEmail(email)) {
       setEmailError("Please enter a valid email.");
       setLoading(false);
@@ -54,7 +59,7 @@ export default function LogIn() {
       return;
     }
 
-    // Si las validaciones pasan, intentamos hacer login
+    // If the email and password are valid, proceed with sign-in
     const { error } = await supabase.auth.signInWithPassword({
       email: email,
       password: password,
@@ -65,24 +70,22 @@ export default function LogIn() {
     }
 
     setLoading(false);
+    resetForm();
+    router.push("/home");
   }
 
   return (
     <Container>
-      <CustomText className="text-4xl font-bold">
+      <CustomText className="text-xl font-bold">
         Sign in to your account
       </CustomText>
-      <View className="flex-row mt-8">
-        <CustomText className="text-xl font-medium mr-2">
-          Don't have an account yet?
-        </CustomText>
+      <View className="flex-row mt-6">
+        <CustomText className="mr-2">Don't have an account yet?</CustomText>
         <Link href="/auth/register">
-          <CustomText className="text-xl font-medium color-[#4cb2e5]">
-            Register here
-          </CustomText>
+          <CustomText className="color-[#4cb2e5]">Register</CustomText>
         </Link>
       </View>
-      <View className="mt-16">
+      <View className="mt-10">
         <View className="mb-6">
           <CustomInput
             label="Email"
@@ -107,7 +110,7 @@ export default function LogIn() {
           {passwordError && <ErrorText>{passwordError}</ErrorText>}
         </View>
       </View>
-      <View className="mt-8">
+      <View className="mt-10">
         <CustomButton
           title="Log in"
           disabled={loading}
@@ -119,7 +122,7 @@ export default function LogIn() {
           {generalError}
         </CustomText>
       )}
-      <CustomText className="text-center mt-16 color-gray-400">
+      <CustomText className="text-center mt-10 color-gray-400">
         or continue with
       </CustomText>
     </Container>

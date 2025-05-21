@@ -1,10 +1,8 @@
-import React from 'react';
-import {Text, View } from "react-native";
+import React from "react";
+import LoginScreen from "@/screens/LoginScreen";
 
 const Login = () => {
-    return (
-        <Text>Login</Text>
-    );
+  return <LoginScreen />;
 };
 
-export default Login; 
+export default Login;

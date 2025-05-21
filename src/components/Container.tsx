@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, ViewProps } from "react-native";
+import { ScrollView, ViewProps } from "react-native";
 
 interface ContainerProps extends ViewProps {
   children?: React.ReactNode; 
@@ -7,9 +7,12 @@ interface ContainerProps extends ViewProps {
 
 const Container: React.FC<ContainerProps> = ({ style, children, ...props }) => {
   return (
-    <View className="p-8" {...props}>
+    <ScrollView
+      contentContainerStyle={[{ padding: 20 }, style]}
+      {...props}
+    >
       {children}
-    </View>
+    </ScrollView>
   );
 };
 

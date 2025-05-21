@@ -17,7 +17,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
     <View>
       <CustomText className="mb-2">{label}</CustomText>
       <View className="flex-row justify-between items-center py-2 px-3 rounded-3xl border-2 border-solid border-gray-300">
-        <TextInput
+        <TextInput className="text-xs"
           {...props}
         />
         {icon && <View>{icon}</View>}

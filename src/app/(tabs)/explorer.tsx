@@ -1,12 +1,13 @@
-import React from 'react';
-import {Text, View } from "react-native";
+import Container from "@/components/Container";
+import ExplorerScreen from "@/screens/ExplorerScreen";
+import React from "react";
 
 const Explorer = () => {
   return (
-    <View>
-      <Text>Explorer Page</Text>
-    </View>
+    <Container>
+      <ExplorerScreen />
+    </Container>
   );
 };
 
-export default Explorer; // Asegúrate de tener el export default aquí
+export default Explorer;

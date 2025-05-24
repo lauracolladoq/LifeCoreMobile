@@ -4,7 +4,7 @@ import { supabase } from "../lib/supabase";
 import CustomButton from "../components/CustomButton";
 import CustomText from "@/components/texts/CustomText";
 import ErrorText from "@/components/texts/ErrorText";
-import Container from "@/components/Container";
+import Container from "@/components/ContainerScroll";
 import CustomInput from "@/components/CustomInput";
 import EmailIcon from "@/assets/icons/email-icon";
 import LockIcon from "@/assets/icons/lock-icon";

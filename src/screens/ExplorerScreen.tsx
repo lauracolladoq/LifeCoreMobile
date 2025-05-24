@@ -4,6 +4,7 @@ import { fetchPosts, subscribeToPosts } from "../lib/postsService";
 import PostCard from "../components/post/PostCard";
 import CustomText from "@/components/texts/CustomText";
 import { supabase } from "../lib/supabase";
+import { useRefreshOnFocus } from "@/utils/useRefreshOnFocus";
 
 const ExplorerScreen = () => {
   const [posts, setPosts] = useState([]);
@@ -38,6 +39,8 @@ const ExplorerScreen = () => {
     }
   };
 
+  useRefreshOnFocus(loadPosts);
+  
   useEffect(() => {
     loadPosts();
 

@@ -5,7 +5,7 @@ import ButtonText from "./texts/ButtonText";
 const CustomButton = ({ title, onPress, disabled }) => {
   return (
     <TouchableOpacity
-      className="bg-[#4cb2e5] p-4 rounded-full items-center"
+      className="bg-sky-300 p-4 rounded-full items-center"
       onPress={onPress}
     >
       <ButtonText>{title}</ButtonText>

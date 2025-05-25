@@ -7,7 +7,7 @@ import ErrorText from "@/components/texts/ErrorText";
 import Container from "@/components/ContainerScroll";
 import CustomInput from "@/components/CustomInput";
 import EmailIcon from "@/assets/icons/email-icon";
-import LockIcon from "@/assets/icons/lock-icon";
+import LockIcon from "@/assets/icons/password-icon";
 import { Link, useRouter } from "expo-router";
 
 AppState.addEventListener("change", (state) => {

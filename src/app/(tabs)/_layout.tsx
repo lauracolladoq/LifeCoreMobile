@@ -1,42 +1,73 @@
 import { Tabs } from "expo-router";
 import HomeIcon from "../../assets/icons/home-icon";
-import ExplorerIcon from "../../assets/icons/explorer-icon";
 import ProfileIcon from "../../assets/icons/profile-icon";
 import SettingsIcon from "../../assets/icons/settings-icon";
+import AddPost from "@/assets/icons/add-post-icon";
+import SearchIcon from "@/assets/icons/search-icon";
+import { View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const TabsLayout = () => {
+  const insets = useSafeAreaInsets();
+
   return (
-    <Tabs>
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          paddingTop: 5,
+        },
+        tabBarShowLabel: false,
+      }}
+    >
       <Tabs.Screen
         name="home"
         options={{
-          headerTitle: "Home",
-          title: "Home",
-          tabBarIcon: () => <HomeIcon />,
+          tabBarIcon: ({ focused }) => (
+            <View className={focused ? "bg-sky-200 p-2 rounded-full" : ""}>
+              <HomeIcon />
+            </View>
+          ),
         }}
       />
       <Tabs.Screen
         name="explorer"
         options={{
-          headerTitle: "Explorer",
-          title: "Explorer",
-          tabBarIcon: () => <ExplorerIcon />,
+          tabBarIcon: ({ focused }) => (
+            <View className={focused ? "bg-sky-200 p-2 rounded-full" : ""}>
+              <SearchIcon />
+            </View>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="create-post"
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View className={focused ? "bg-sky-200 p-2 rounded-full" : ""}>
+              <AddPost />
+            </View>
+          ),
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
-          headerTitle: "Profile",
-          title: "Profile",
-          tabBarIcon: () => <ProfileIcon />,
+          tabBarIcon: ({ focused }) => (
+            <View className={focused ? "bg-sky-200 p-2 rounded-full" : ""}>
+              <ProfileIcon />
+            </View>
+          ),
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
-          headerTitle: "Settings",
-          title: "Settings",
-          tabBarIcon: () => <SettingsIcon />,
+          tabBarIcon: ({ focused }) => (
+            <View className={focused ? "bg-sky-200 p-2 rounded-full" : ""}>
+              <SettingsIcon />
+            </View>
+          ),
         }}
       />
     </Tabs>

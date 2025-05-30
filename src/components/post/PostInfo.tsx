@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { View, Image, TouchableOpacity } from "react-native";
 import LightText from "@/components/texts/LightText";
-import LikeIcon from "@/assets/icons/like-icon";
 import CommentIcon from "@/assets/icons/comment-icon";
+import Like from "./Like";
 
 const PostInfo = ({ post }: { post: any }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const toggleContent = () => setIsExpanded(!isExpanded); 
+  const toggleContent = () => setIsExpanded(!isExpanded);
 
   return (
     <View>
@@ -18,13 +18,12 @@ const PostInfo = ({ post }: { post: any }) => {
       />
       <View className="flex-row justify-between items-center">
         <View className="flex-row items-center gap-2">
-          <View className="flex-row items-center gap-1">
-            <LikeIcon />
-            <LightText className="text-red-500 mr-2">
-              {post.likes_count}
-            </LightText>
-          </View>
-          <CommentIcon/>
+          <Like
+            postId={post.id}
+            initialCount={post.likes_count}
+            initiallyLiked={post.hasLiked}
+          />
+          <CommentIcon />
         </View>
         <LightText className="text-gray-500 text-[8px] self-start">
           {post.created_at
@@ -36,7 +35,7 @@ const PostInfo = ({ post }: { post: any }) => {
         <View>
           <LightText
             className={`text-xs ${!isExpanded ? "text-ellipsis" : ""}`}
-            numberOfLines={isExpanded ? undefined : 1} 
+            numberOfLines={isExpanded ? undefined : 1}
           >
             {post.content}
           </LightText>

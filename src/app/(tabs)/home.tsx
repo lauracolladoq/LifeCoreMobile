@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import { supabase } from "./../../lib/supabase";
 import { View, Alert } from "react-native";
 import { Session } from "@supabase/supabase-js";
-import CustomText from "@/components/texts/CustomText";
-import CustomButton from "@/components/CustomButton";
+import CustomButton from "@/components/common/CustomButton";
 import { Link } from "expo-router";
+import LightText from "@/components/texts/LightText";
 
 const HomeScreen = () => {
   const [session, setSession] = useState<Session | null>(null);
@@ -35,16 +35,15 @@ const HomeScreen = () => {
 
   return (
     <View>
-      <CustomText className="text-xl font-bold">Holaaaaaaaaa</CustomText>
+      <LightText className="text-xl font-bold">Holaaaaaaaaa</LightText>
       {session ? (
         <CustomButton
           title="Sign Out"
           onPress={handleSignOut}
-          disabled={false}
         />
       ) : (
         <Link href="/auth/login">
-          <CustomText className="color-[#4cb2e5]">Log in</CustomText>
+          <LightText className="color-[#4cb2e5]">Log in</LightText>
         </Link>
       )}
     </View>

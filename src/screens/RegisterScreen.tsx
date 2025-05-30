@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { View, Alert, AppState } from "react-native";
 import { supabase } from "../lib/supabase";
-import CustomButton from "../components/CustomButton";
-import CustomText from "@/components/texts/CustomText";
+import CustomButton from "../components/common/CustomButton";
+import LightText from "@/components/texts/LightText";
 import ErrorText from "@/components/texts/ErrorText";
-import Container from "@/components/ContainerScroll";
-import CustomInput from "@/components/CustomInput";
+import Container from "@/components/common/Container";
+import CustomInput from "@/components/common/CustomInput";
 import EmailIcon from "@/assets/icons/email-icon";
 import LockIcon from "@/assets/icons/password-icon";
 import { Link, useRouter } from "expo-router";
+import BoldText from "@/components/texts/BoldText";
+import SemiBoldText from "@/components/texts/SemiBoldText";
+import ContainerScroll from "@/components/common/ContainerScroll";
 
 AppState.addEventListener("change", (state) => {
   if (state === "active") {
@@ -32,7 +35,9 @@ export default function RegisterScreen() {
   const [nameError, setNameError] = useState("");
   const [generalError, setGeneralError] = useState("");
   const router = useRouter();
-  const { data } = supabase.storage.from('profile-picture').getPublicUrl('avatar.png');
+  const { data } = supabase.storage
+    .from("profile-picture")
+    .getPublicUrl("avatar.png");
 
   // Validation functions
   const validateEmail = (email) =>
@@ -131,85 +136,95 @@ export default function RegisterScreen() {
   }
 
   return (
-    <Container>
-      <CustomText className="text-xl font-bold">Create an account</CustomText>
-      <View className="flex-row mt-6">
-        <CustomText className="mr-2">Already have an account?</CustomText>
-        <Link href="/auth/login">
-          <CustomText className="color-[#4cb2e5]">Log in</CustomText>
-        </Link>
-      </View>
-      <View className="mt-10">
-        <View className="mb-6">
-          <CustomInput
-            label="Name"
-            onChangeText={setName}
-            value={name}
-            placeholder="Enter your full name"
-            autoCapitalize="words"
-          />
-          {nameError && <ErrorText>{nameError}</ErrorText>}
+    <ContainerScroll>
+      <View className="gap-9">
+        {/* Register information */}
+        <View>
+          <BoldText className="text-xl">Create an account</BoldText>
+          <View className="flex-row">
+            <LightText className="mr-2">Already have an account?</LightText>
+            <Link href="/auth/login">
+              <SemiBoldText className="color-sky-300">Log in</SemiBoldText>
+            </Link>
+          </View>
         </View>
-        <View className="mb-6">
-          <CustomInput
-            label="Username"
-            onChangeText={setUsername}
-            value={username}
-            placeholder="Enter your username"
-            autoCapitalize="none"
-          />
-          {usernameError && <ErrorText>{usernameError}</ErrorText>}
+        {/* Input fields */}
+        <View className="gap-3">
+          <View>
+            <CustomInput
+              label="Name"
+              onChangeText={setName}
+              value={name}
+              placeholder="Enter your full name"
+              autoCapitalize="words"
+            />
+            {nameError && <ErrorText>{nameError}</ErrorText>}
+          </View>
+          <View>
+            <CustomInput
+              label="Username"
+              onChangeText={setUsername}
+              value={username}
+              placeholder="Enter your username"
+              autoCapitalize="none"
+            />
+            {usernameError && <ErrorText>{usernameError}</ErrorText>}
+          </View>
+          <View>
+            <CustomInput
+              label="Email"
+              onChangeText={setEmail}
+              value={email}
+              placeholder="Enter your email"
+              autoCapitalize="none"
+              icon={<EmailIcon />}
+            />
+            {emailError && <ErrorText>{emailError}</ErrorText>}
+          </View>
+          <View>
+            <CustomInput
+              label="Password"
+              onChangeText={setPassword}
+              value={password}
+              secureTextEntry
+              placeholder="Enter your password"
+              autoCapitalize="none"
+              icon={<LockIcon />}
+            />
+            {passwordError && <ErrorText>{passwordError}</ErrorText>}
+          </View>
+          <View>
+            <CustomInput
+              label="Confirm Password"
+              onChangeText={setConfirmPassword}
+              value={confirmPassword}
+              secureTextEntry
+              placeholder="Confirm your password"
+              autoCapitalize="none"
+              icon={<LockIcon />}
+            />
+            {confirmPasswordError && (
+              <ErrorText>{confirmPasswordError}</ErrorText>
+            )}
+          </View>
         </View>
-        <View className="mb-6">
-          <CustomInput
-            label="Email"
-            onChangeText={setEmail}
-            value={email}
-            placeholder="Enter your email"
-            autoCapitalize="none"
-            icon={<EmailIcon />}
-          />
-          {emailError && <ErrorText>{emailError}</ErrorText>}
-        </View>
-        <View className="mb-6">
-          <CustomInput
-            label="Password"
-            onChangeText={setPassword}
-            value={password}
-            secureTextEntry
-            placeholder="Enter your password"
-            autoCapitalize="none"
-            icon={<LockIcon />}
-          />
-          {passwordError && <ErrorText>{passwordError}</ErrorText>}
-        </View>
-        <View className="mb-6">
-          <CustomInput
-            label="Confirm Password"
-            onChangeText={setConfirmPassword}
-            value={confirmPassword}
-            secureTextEntry
-            placeholder="Confirm your password"
-            autoCapitalize="none"
-            icon={<LockIcon />}
-          />
-          {confirmPasswordError && (
-            <ErrorText>{confirmPasswordError}</ErrorText>
-          )}
-        </View>
-      </View>
-      <View className="mt-10">
+        {/* Register button */}
         <CustomButton
           title="Register"
           disabled={loading}
           onPress={signUpWithEmail}
         />
+        {/* General error message */}
+        {generalError ? (
+          <View className="items-center">
+            {generalError && <ErrorText>{generalError}</ErrorText>}
+          </View>
+        ) : null}
+        {/* Providers */}
+        <LightText className="text-center color-gray-400">
+          or register with
+        </LightText>
       </View>
-      {generalError && (
-        <CustomText className="text-center mt-4 color-red-500">
-          {generalError}
-        </CustomText>
-      )}
-    </Container>
+    </ContainerScroll>
   );
 }

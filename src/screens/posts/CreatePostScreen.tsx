@@ -7,11 +7,12 @@ import { decode } from "base64-arraybuffer";
 
 // @ts-ignore
 import { EXPO_POSTS_BUCKET_NAME, EXPO_POSTS_BUCKET_URL } from "@env";
-import CustomButton from "@/components/CustomButton";
-import CustomText from "@/components/texts/CustomText";
-import Container from "@/components/Container";
-import CustomInput from "@/components/CustomInput";
-import ImageInput from "@/components/ImageInput";
+import CustomButton from "@/components/common/CustomButton";
+import ErrorText from "@/components/texts/ErrorText";
+import Container from "@/components/common/Container";
+import ImageInput from "@/components/common/ImageInput";
+import BoldText from "@/components/texts/BoldText";
+import ContentInput from "@/components/post/ContentInput";
 
 const bucketName = EXPO_POSTS_BUCKET_NAME;
 const bucketUrl = EXPO_POSTS_BUCKET_URL;
@@ -20,12 +21,19 @@ const CreatePostScreen = () => {
   const [content, setContent] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
 
+  // Estados para errores
+  const [imageError, setImageError] = useState("");
+  const [contentError, setContentError] = useState("");
+  const [generalError, setGeneralError] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const BUCKET_NAME = bucketName;
   const PUBLIC_URL_BASE = bucketUrl;
 
   const onSelectImage = async () => {
+    setImageError("");
     const options: ImagePicker.ImagePickerOptions = {
-      mediaTypes: ["images"],
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       quality: 1,
     };
@@ -48,8 +56,7 @@ const CreatePostScreen = () => {
         "svg",
       ];
       if (!fileExtension || !validExtensions.includes(fileExtension)) {
-        Alert.alert(
-          "Error",
+        setImageError(
           "Please select a valid image file (jpeg, jpg, png, gif, webp, bmp, tiff, tif, svg)."
         );
         return;
@@ -60,26 +67,37 @@ const CreatePostScreen = () => {
   };
 
   const onSubmitPost = async () => {
+    setImageError("");
+    setContentError("");
+    setGeneralError("");
+
     if (!selectedImage) {
-      Alert.alert("Error", "Please select an image to upload.");
+      setImageError("Please select an image to upload.");
       return;
     }
 
-    const img = selectedImage;
-    const fileExtension = img.uri.split(".").pop()?.toLowerCase();
-    const mimeTypes = {
-      jpeg: "image/jpeg",
-      jpg: "image/jpeg",
-      png: "image/png",
-      gif: "image/gif",
-      webp: "image/webp",
-      bmp: "image/bmp",
-      tiff: "image/tiff",
-      tif: "image/tiff",
-      svg: "image/svg+xml",
-    };
+    if (content.trim().length > 500) {
+      setContentError("Content must be 500 characters or less.");
+      return;
+    }
+
+    setLoading(true);
 
     try {
+      const img = selectedImage;
+      const fileExtension = img.uri.split(".").pop()?.toLowerCase();
+      const mimeTypes = {
+        jpeg: "image/jpeg",
+        jpg: "image/jpeg",
+        png: "image/png",
+        gif: "image/gif",
+        webp: "image/webp",
+        bmp: "image/bmp",
+        tiff: "image/tiff",
+        tif: "image/tiff",
+        svg: "image/svg+xml",
+      };
+
       const base64 = await FileSystem.readAsStringAsync(img.uri, {
         encoding: "base64",
       });
@@ -121,34 +139,45 @@ const CreatePostScreen = () => {
       Alert.alert("", "Post created successfully!");
       setContent("");
       setSelectedImage(null);
-    } catch (error) {
-      Alert.alert("Error", "Error creating the post: " + error.message);
+    } catch (error: any) {
+      setGeneralError("Error creating the post: " + error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <Container className="flex flex-col justify-start h-full gap-6">
-      <CustomText className="text-xl font-bold text-center">
-        Create a new post
-      </CustomText>
-      <ImageInput
-        label="Image"
-        imageUri={selectedImage?.uri || null}
-        onSelectImage={onSelectImage}
-      />
-      <CustomInput
-        label="Content"
-        placeholder="Write your post content"
-        value={content}
-        onChangeText={setContent}
-      />
-      <View className="mt-auto">
+    <Container className="flex flex-col justify-start h-full gap-3">
+      <BoldText className="text-lg text-center">New post</BoldText>
+      {/* Input fiels */}
+      <View className="gap-3">
+        <View>
+          <ImageInput
+            label="Image"
+            imageUri={selectedImage?.uri || null}
+            onSelectImage={onSelectImage}
+          />
+          {imageError ? <ErrorText>{imageError}</ErrorText> : null}
+        </View>
+        <View>
+          <ContentInput
+            label="Content"
+            placeholder="Write your post content"
+            value={content}
+            onChangeText={setContent}
+          />
+          {contentError ? <ErrorText>{contentError}</ErrorText> : null}
+        </View>
+      </View>
+      {/* Create button */}
+      <View>
         <CustomButton
           title="Create Post"
           onPress={onSubmitPost}
-          disabled={false}
+          disabled={loading}
         />
       </View>
+      {generalError ? <ErrorText>{generalError}</ErrorText> : null}
     </Container>
   );
 };

@@ -11,9 +11,7 @@ const PostsDisplay = ({ posts }: { posts: any[] }) => {
 
   if (!posts.length) {
     return (
-      <LightText className="text-center">
-        No posts available yet.
-      </LightText>
+      <LightText className="text-center">No posts available yet.</LightText>
     );
   }
 
@@ -47,9 +45,10 @@ const PostsDisplay = ({ posts }: { posts: any[] }) => {
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => <PostCard post={item} />}
           contentContainerStyle={{
-            flexGrow: 1,
             paddingHorizontal: 20,
+            gap: 15,
           }}
+          showsVerticalScrollIndicator={false}
         />
       )}
     </View>

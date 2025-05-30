@@ -4,7 +4,7 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
-import LightText from "./texts/LightText";
+import LightText from "../texts/LightText";
 
 interface ImageInputProps {
   label: string;

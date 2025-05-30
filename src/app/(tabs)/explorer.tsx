@@ -1,4 +1,4 @@
-import Container from "@/components/Container";
+import Container from "@/components/common/Container";
 import ExplorerScreen from "@/screens/ExplorerScreen";
 import React from "react";
 

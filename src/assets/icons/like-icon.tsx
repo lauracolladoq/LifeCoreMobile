@@ -1,7 +1,7 @@
 import React from "react";
 import Svg, { Path } from "react-native-svg";
 
-const LikeIcon = ({ width = 24, height = 24, filled = false, color = "#d0021b" }) => (
+const LikeIcon = ({ width = 24, height = 24, filled = false, color = "#EF4444" }) => (
   <Svg
     width={width}
     height={height}

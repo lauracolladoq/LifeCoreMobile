@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React  from "react";
 import { View, TextInput, TextInputProps } from "react-native";
-import LightText from "./texts/LightText";
+import LightText from "../texts/LightText";
 
 interface CustomInputProps extends TextInputProps {
   label: string;

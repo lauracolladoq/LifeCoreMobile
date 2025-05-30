@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { View, FlatList, ActivityIndicator } from "react-native";
 import { fetchPosts, subscribeToPosts } from "../lib/postsService";
 import PostCard from "../components/post/PostCard";
-import CustomText from "@/components/texts/CustomText";
+import CustomText from "@/components/texts/LightText";
 import { supabase } from "../lib/supabase";
 import { useRefreshOnFocus } from "@/utils/useRefreshOnFocus";
+import SemiBoldText from "@/components/texts/SemiBoldText";
 
 const ExplorerScreen = () => {
   const [posts, setPosts] = useState([]);
@@ -94,11 +95,12 @@ const ExplorerScreen = () => {
       data={posts}
       keyExtractor={(item) => item.id.toString()}
       renderItem={({ item }) => <PostCard post={item} />}
-      contentContainerStyle={{ paddingBottom: 20, flexGrow: 1 }}
+      contentContainerStyle={{ gap:15 }}
+      showsVerticalScrollIndicator={false}
       // Automatically check if the list is empty
       ListEmptyComponent={() => (
         <View className="flex-1 justify-center items-center">
-          <CustomText>No posts available yet.</CustomText>
+          <SemiBoldText className="text-center">No posts available yet.</SemiBoldText>
         </View>
       )}
     />
@@ -106,3 +108,4 @@ const ExplorerScreen = () => {
 };
 
 export default ExplorerScreen;
+

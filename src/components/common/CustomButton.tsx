@@ -1,6 +1,6 @@
 import React from "react";
 import { TouchableOpacity } from "react-native";
-import SemiBoldText from "./texts/SemiBoldText";
+import SemiBoldText from "../texts/SemiBoldText";
 
 const CustomButton = ({ title, onPress, disabled = false }) => {
   return (

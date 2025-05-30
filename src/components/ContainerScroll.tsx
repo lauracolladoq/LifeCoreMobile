@@ -8,7 +8,7 @@ interface ContainerProps extends ViewProps {
 const ContainerScroll: React.FC<ContainerProps> = ({ style, children, ...props }) => {
   return (
     <ScrollView
-      contentContainerStyle={[{ padding: 20 }, style]}
+      contentContainerStyle={[{ padding: 20, flexGrow: 1, justifyContent:"flex-start" }, style]}
       {...props}
     >
       {children}

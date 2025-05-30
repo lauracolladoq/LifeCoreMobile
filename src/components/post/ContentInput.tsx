@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import { View, TextInput, TextInputProps } from "react-native";
-import LightText from "./texts/LightText";
+import LightText from "../texts/LightText";
 
-interface CustomInputProps extends TextInputProps {
+interface ContentInputProps extends TextInputProps {
   label: string;
   icon?: JSX.Element;
 }
 
-const CustomInput: React.FC<CustomInputProps> = ({
+const ContentInput: React.FC<ContentInputProps> = ({
   label,
   icon,
   style,
   ...props
 }) => {
+  const [height, setHeight] = useState(40);
+
   return (
     <View>
       <LightText className="mb-2 text-sm">{label}</LightText>
@@ -21,6 +23,10 @@ const CustomInput: React.FC<CustomInputProps> = ({
         style={[style]}
       >
         <TextInput
+          multiline
+          onContentSizeChange={(e) =>
+            setHeight(Math.max(40, e.nativeEvent.contentSize.height))
+          }
           className="text-xs flex-1"
           style={{ fontFamily: "Nunito-Light" }}
           {...props}
@@ -31,4 +37,4 @@ const CustomInput: React.FC<CustomInputProps> = ({
   );
 };
 
-export default CustomInput;
+export default ContentInput;

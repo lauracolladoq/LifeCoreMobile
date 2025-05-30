@@ -3,9 +3,8 @@ import {
   View,
   TouchableOpacity,
   ImageBackground,
-  Text,
 } from "react-native";
-import CustomText from "./texts/CustomText";
+import LightText from "./texts/LightText";
 
 interface ImageInputProps {
   label: string;
@@ -20,7 +19,7 @@ const ImageInput: React.FC<ImageInputProps> = ({
 }) => {
   return (
     <View>
-      <CustomText className="mb-2">{label}</CustomText>
+      <LightText className="mb-2">{label}</LightText>
       <TouchableOpacity onPress={onSelectImage}>
         <ImageBackground
           source={imageUri ? { uri: imageUri } : undefined}
@@ -34,7 +33,7 @@ const ImageInput: React.FC<ImageInputProps> = ({
           className="border-2 border-gray-300 rounded-3xl bg-gray-100"
         >
           {!imageUri && (
-            <CustomText className="bg-sky-300 p-3 rounded-full text-sm">Select an image</CustomText>
+            <LightText className="bg-sky-300 p-2 rounded-full text-sm">Select an image</LightText>
           )}
         </ImageBackground>
       </TouchableOpacity>

@@ -1,7 +1,7 @@
 import React from "react";
 import Svg, { Path } from "react-native-svg";
 
-const EditIcon = ({ width = 24, height = 24, color = "#000000" }) => (
+const EditIcon = ({ width = 30, height = 30, color = "#000000" }) => (
   <Svg
     width={width}
     height={height}

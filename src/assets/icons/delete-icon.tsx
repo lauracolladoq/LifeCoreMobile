@@ -1,7 +1,7 @@
 import React from "react";
 import Svg, { Path } from "react-native-svg";
 
-const DeleteIcon = ({ width = 24, height = 24, color = "#000000" }) => (
+const DeleteIcon = ({ width = 30, height = 30, color = "#EF4444" }) => (
   <Svg
     width={width}
     height={height}

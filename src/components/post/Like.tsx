@@ -3,6 +3,7 @@ import { TouchableOpacity, View } from "react-native";
 import LikeIcon from "@/assets/icons/like-icon";
 import { supabase } from "@/lib/supabase";
 import LightText from "../texts/LightText";
+import { getLikesCount } from "@/lib/likeService";
 
 interface LikeProps {
   postId: string;
@@ -21,13 +22,14 @@ const Like: React.FC<LikeProps> = ({
   const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchUserId = async () => {
+    const fetchUserIdAndLike = async () => {
       const {
         data: { user },
       } = await supabase.auth.getUser();
       if (user) {
         setUserId(user.id);
-        // Check if the user has already liked the post
+
+        // Check if user has liked the post
         const { data, error } = await supabase
           .from("likes")
           .select("id")
@@ -37,11 +39,19 @@ const Like: React.FC<LikeProps> = ({
 
         if (!error && data) {
           setLiked(true);
+        } else {
+          setLiked(false);
         }
       }
     };
 
-    fetchUserId();
+    const fetchCount = async () => {
+      const likesCount = await getLikesCount(postId);
+      setCount(likesCount);
+    };
+
+    fetchUserIdAndLike();
+    fetchCount();
   }, [postId]);
 
   const toggleLike = async () => {
@@ -56,7 +66,7 @@ const Like: React.FC<LikeProps> = ({
           .eq("post_id", postId)
           .eq("user_id", userId);
         setLiked(false);
-        setCount((c) => c - 1);
+        setCount((c) => Math.max(c - 1, 0));
       } else {
         await supabase
           .from("likes")

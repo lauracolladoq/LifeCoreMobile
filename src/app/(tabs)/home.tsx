@@ -1,53 +1,55 @@
-import "react-native-url-polyfill/auto";
-import { useState, useEffect } from "react";
-import { supabase } from "./../../lib/supabase";
-import { View, Alert } from "react-native";
-import { Session } from "@supabase/supabase-js";
-import CustomButton from "@/components/common/CustomButton";
-import { Link } from "expo-router";
-import LightText from "@/components/texts/LightText";
+import AuthRequiredScreen from "@/screens/AuthRequiredScreen";
+import React, { useEffect, useState } from "react";
+import { ActivityIndicator, View } from "react-native";
+import { checkAuthStatus } from "@/utils/authCheck";
+import { useRefreshOnFocus } from "@/utils/useRefreshOnFocus";
+import HomeScreen from "@/screens/HomeScreen";
+import { getCurrentUser } from "@/lib/authService";
+import Container from "@/components/common/Container";
 
-const HomeScreen = () => {
-  const [session, setSession] = useState<Session | null>(null);
+const Home = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
-
-    const { data: subscription } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        setSession(session);
-      }
-    );
-  }, []);
-
-  const handleSignOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      Alert.alert("Error", "Failed to sign out. Please try again.");
-    } else {
-      Alert.alert("Success", "You have been signed out.");
-      setSession(null); // Limpiar la sesión local
-      // <Link href="/auth/login" replace />;
+  const verifyAuthStatus = async () => {
+    try {
+      const loggedIn = await checkAuthStatus();
+      setIsLoggedIn(loggedIn);
+    } catch (error) {
+      console.error("Error verifying auth status:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  return (
-    <View>
-      <LightText className="text-xl font-bold">Holaaaaaaaaa</LightText>
-      {session ? (
-        <CustomButton
-          title="Sign Out"
-          onPress={handleSignOut}
-        />
-      ) : (
-        <Link href="/auth/login">
-          <LightText className="color-[#4cb2e5]">Log in</LightText>
-        </Link>
-      )}
-    </View>
+  useRefreshOnFocus(verifyAuthStatus);
+
+  useEffect(() => {
+    verifyAuthStatus();
+  }, []);
+
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    getCurrentUser().then(setCurrentUser);
+  }, []);
+
+  // Wait for auth status and current user to be ready
+  if (loading || !currentUser) {
+    return (
+      <View className="flex-1 justify-center items-center">
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
+
+  return isLoggedIn ? (
+    <Container>
+      <HomeScreen currentUser={currentUser} />
+    </Container>
+  ) : (
+    <AuthRequiredScreen />
   );
 };
 
-export default HomeScreen;
+export default Home;

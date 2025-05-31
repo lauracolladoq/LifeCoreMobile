@@ -45,7 +45,7 @@ const UserProfileScreen = () => {
   return (
     <View className="flex-1">
       {profile && (
-        <UserInfo profile={profile} currentUserId={currentUser?.id} />
+        <UserInfo profile={profile} currentUser={currentUser} />
       )}
       <PostsDisplay posts={posts} />
     </View>

@@ -1,14 +1,14 @@
 import React from "react";
-import { View, Image, TouchableOpacity } from "react-native";
+import { Image, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import SemiBoldText from "../texts/SemiBoldText";
 
-const ProfileInfo = ({ user, currentUserId }) => {
+const ProfileInfo = ({ user, currentUser }) => {
   const router = useRouter();
 
   const handlePress = () => {
     // Navigate to profile if the user is the current user
-    if (user.id === currentUserId?.id) {
+    if (user.id === currentUser?.id) {
       router.push("/(tabs)/profile");
     } else {
       router.push(`/users/${user.id}`);

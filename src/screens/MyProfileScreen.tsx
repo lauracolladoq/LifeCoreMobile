@@ -67,7 +67,7 @@ const MyProfileScreen = () => {
 
   return (
     <View className="flex-1">
-      <UserInfo profile={profile} currentUserId={currentUser} />
+      <UserInfo profile={profile} currentUser={currentUser} />
       <PostsDisplay posts={posts} />
     </View>
   );

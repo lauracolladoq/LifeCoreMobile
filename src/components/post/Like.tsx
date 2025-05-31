@@ -21,38 +21,46 @@ const Like: React.FC<LikeProps> = ({
   const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
-    const getUser = async () => {
+    const fetchUserId = async () => {
       const {
         data: { user },
       } = await supabase.auth.getUser();
       if (user) {
         setUserId(user.id);
+        // Check if the user has already liked the post
+        const { data, error } = await supabase
+          .from("likes")
+          .select("id")
+          .eq("post_id", postId)
+          .eq("user_id", user.id)
+          .single();
+
+        if (!error && data) {
+          setLiked(true);
+        }
       }
     };
-    getUser();
-  }, []);
+
+    fetchUserId();
+  }, [postId]);
 
   const toggleLike = async () => {
-    if (loading) return;
+    if (loading || !userId || !postId) return;
     setLoading(true);
 
     try {
       if (liked) {
-        // Delete like
-        const { error } = await supabase
+        await supabase
           .from("likes")
           .delete()
           .eq("post_id", postId)
           .eq("user_id", userId);
-        if (error) throw error;
         setLiked(false);
         setCount((c) => c - 1);
       } else {
-        // Insert like
-        const { error } = await supabase
+        await supabase
           .from("likes")
           .insert([{ post_id: postId, user_id: userId }]);
-        if (error) throw error;
         setLiked(true);
         setCount((c) => c + 1);
       }

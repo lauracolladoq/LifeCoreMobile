@@ -1,7 +1,10 @@
 import { supabase } from "./supabase";
 
-// Fetch all posts from the database
-export const fetchPosts = async () => {
+// Fetch all posts with likes and profiles
+export const fetchPosts = async (page, postsPerPage) => {
+  const from = (page - 1) * postsPerPage;
+  const to = from + postsPerPage - 1;
+
   const { data, error } = await supabase
     .from("posts")
     .select(
@@ -19,6 +22,7 @@ export const fetchPosts = async () => {
       likes (id)
     `
     )
+    .range(from, to)
     .order("created_at", { ascending: false });
 
   if (error) {
@@ -44,22 +48,4 @@ export const fetchPosts = async () => {
     },
     likes_count: post.likes?.length || 0,
   }));
-};
-
-// Realtime subscription to posts
-export const subscribeToPosts = (callback: (change: any) => void) => {
-  const subscription = supabase
-    .channel("realtime:posts")
-    .on(
-      "postgres_changes",
-      {
-        event: "*", // INSERT, UPDATE, DELETE
-        schema: "public",
-        table: "posts",
-      },
-      callback
-    )
-    .subscribe();
-
-  return subscription;
 };

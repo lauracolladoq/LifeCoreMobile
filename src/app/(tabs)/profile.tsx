@@ -1,9 +1,9 @@
 import AuthRequiredScreen from "@/screens/AuthRequiredScreen";
-import ProfileScreen from "@/screens/ProfileScreen";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { checkAuthStatus } from "@/utils/authCheck";
 import { useRefreshOnFocus } from "@/utils/useRefreshOnFocus";
+import MyProfileScreen from "@/screens/MyProfileScreen";
 
 const Profile = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
@@ -34,7 +34,7 @@ const Profile = () => {
     );
   }
 
-  return isLoggedIn ? <ProfileScreen /> : <AuthRequiredScreen />;
+  return isLoggedIn ? <MyProfileScreen /> : <AuthRequiredScreen />;
 };
 
 export default Profile;

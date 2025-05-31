@@ -1,12 +1,10 @@
-import { useLocalSearchParams } from "expo-router";
-import { Text, View } from "react-native";
+import UserProfileScreen from "@/screens/UserProfileScreen";
+import React from "react";
 
-const UserPage = () => {
-  const { id } = useLocalSearchParams<{ id: string }>();
+const UserProfile = () => {
   return (
-    <View>
-      <Text>User Page - {id}</Text>
-    </View>
+    <UserProfileScreen />
   );
 };
-export default UserPage;
+
+export default UserProfile;

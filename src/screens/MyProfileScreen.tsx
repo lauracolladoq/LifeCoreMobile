@@ -1,20 +1,29 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { View, ActivityIndicator } from "react-native";
 import PostsDisplay from "@/components/profile/PostsDisplay";
 import UserInfo from "@/components/profile/UserInfo";
 import { supabase } from "@/lib/supabase";
 import { formatPost } from "@/utils/formatPost";
 import { useRefreshOnFocus } from "@/utils/useRefreshOnFocus";
+import { getCurrentUser } from "@/lib/authService";
 
-const ProfileScreen = () => {
+const MyProfileScreen = () => {
   const [profile, setProfile] = useState(null);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    getCurrentUser().then(setCurrentUser);
+  }, []);
+
   const loadData = useCallback(async () => {
     setLoading(true);
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       if (!user) return;
 
       // Load profile data
@@ -23,7 +32,7 @@ const ProfileScreen = () => {
         .select("*")
         .eq("id", user.id)
         .single();
-      
+
       // Load posts for the user
       const { data: postsData } = await supabase
         .from("posts")
@@ -41,7 +50,7 @@ const ProfileScreen = () => {
       setLoading(false);
     }
   }, []);
-  
+
   useRefreshOnFocus(loadData);
 
   React.useEffect(() => {
@@ -58,10 +67,10 @@ const ProfileScreen = () => {
 
   return (
     <View className="flex-1">
-      <UserInfo profile={profile} />
+      <UserInfo profile={profile} currentUserId={currentUser} />
       <PostsDisplay posts={posts} />
     </View>
   );
 };
 
-export default ProfileScreen;
+export default MyProfileScreen;

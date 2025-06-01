@@ -1,7 +1,7 @@
 import React from "react";
 import Svg, { Path } from "react-native-svg";
 
-const PasswordIcon = ({ width = 24, height = 24, color = "#D1D5DB" }) => (
+const PasswordIcon = ({ width = 24, height = 24, color = "#000" }) => (
   <Svg
     width={width}
     height={height}

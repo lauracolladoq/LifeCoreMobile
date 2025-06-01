@@ -8,7 +8,7 @@ export async function getCurrentUser(): Promise<User | null> {
     // Return the user object if it exists
     return data?.user ?? null;
   } catch (error) {
-    console.error("Unexpected error getting current user:", error);
+    console.log("Unexpected error getting current user:", error);
     return null;
   }
 }

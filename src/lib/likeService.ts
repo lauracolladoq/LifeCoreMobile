@@ -7,7 +7,7 @@ export async function getLikesCount(postId: string) {
     .eq("post_id", postId);
 
   if (error) {
-    console.error("Error fetching likes count:", error);
+    console.log("Error fetching likes count:", error);
     return 0;
   }
 

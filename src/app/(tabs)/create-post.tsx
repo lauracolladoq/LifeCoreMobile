@@ -14,7 +14,7 @@ const CreatePost = () => {
       const loggedIn = await checkAuthStatus();
       setIsLoggedIn(loggedIn);
     } catch (error) {
-      console.error("Error verifying auth status:", error);
+      console.log("Error verifying auth status:", error);
     } finally {
       setLoading(false);
     }

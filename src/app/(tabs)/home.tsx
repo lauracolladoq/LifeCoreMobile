@@ -22,7 +22,7 @@ const Home = () => {
         setCurrentUser(user);
       }
     } catch (error) {
-      console.error("Error verifying auth status:", error);
+      console.log("Error verifying auth status:", error);
     } finally {
       setLoading(false);
     }

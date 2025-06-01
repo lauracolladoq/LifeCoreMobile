@@ -17,7 +17,7 @@ const FollowToggle = ({ currentUser, profile }) => {
           setIsFollowing(following);
         }
       } catch (error) {
-        console.error("Error checking follow status:", error);
+        console.log("Error checking follow status:", error);
       }
     };
 
@@ -38,7 +38,7 @@ const FollowToggle = ({ currentUser, profile }) => {
         setIsFollowing(true);
       }
     } catch (error) {
-      console.error("Error toggling follow status:", error);
+      console.log("Error toggling follow status:", error);
     } finally {
       setLoading(false);
     }

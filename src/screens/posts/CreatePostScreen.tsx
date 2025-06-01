@@ -130,7 +130,7 @@ const CreatePostScreen = () => {
           .remove([filePath]);
 
         if (deleteError) {
-          console.error("Error deleting the image:", deleteError.message);
+          console.log("Error deleting the image:", deleteError.message);
         }
 
         throw insertError;

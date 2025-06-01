@@ -22,7 +22,7 @@ const ExplorerScreen = () => {
       setHasMore(postsData.length === POSTS_PER_PAGE);
       setPosts((prev) => (page === 1 ? postsData : [...prev, ...postsData]));
     } catch (error) {
-      console.error("Error loading posts:", error);
+      console.log("Error loading posts:", error);
     } finally {
       setLoading(false); 
       setIsFetching(false);

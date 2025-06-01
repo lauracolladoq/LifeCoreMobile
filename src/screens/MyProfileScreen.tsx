@@ -45,7 +45,7 @@ const MyProfileScreen = () => {
       setProfile(profileData);
       setPosts(mappedPosts);
     } catch (error) {
-      console.error("Error loading profile and posts:", error);
+      console.log("Error loading profile and posts:", error);
     } finally {
       setLoading(false);
     }

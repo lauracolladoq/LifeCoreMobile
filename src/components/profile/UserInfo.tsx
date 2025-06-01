@@ -24,7 +24,7 @@ const UserInfo = ({ profile, currentUser }) => {
         setFollowersCount(followers);
         setFollowingCount(following);
       } catch (error) {
-        console.error(error);
+        console.log(error);
       }
     };
 

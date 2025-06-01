@@ -75,7 +75,7 @@ const Like: React.FC<LikeProps> = ({
         setCount((c) => c + 1);
       }
     } catch (error) {
-      console.error("Error toggling like:", error);
+      console.log("Error toggling like:", error);
     } finally {
       setLoading(false);
     }

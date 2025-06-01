@@ -26,7 +26,7 @@ export const fetchPosts = async (page, postsPerPage) => {
     .order("created_at", { ascending: false });
 
   if (error) {
-    console.error("Error fetching posts:", error);
+    console.log("Error fetching posts:", error);
     return [];
   }
 
@@ -137,7 +137,7 @@ export const fetchUserPosts = async (userId: string) => {
     .order("created_at", { ascending: false });
 
   if (error) {
-    console.error("Error fetching user posts:", error);
+    console.log("Error fetching user posts:", error);
     return [];
   }
 

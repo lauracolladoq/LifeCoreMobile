@@ -8,7 +8,7 @@ export const checkAuthStatus = async (): Promise<boolean> => {
     // If user is null return false, otherwise return true
     return !!user; 
   } catch (error) {
-    console.error("Error checking auth status:", error);
+    console.log("Error checking auth status:", error);
     return false;
   }
 };

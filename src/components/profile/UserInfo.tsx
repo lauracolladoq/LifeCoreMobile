@@ -67,11 +67,7 @@ const UserInfo = ({ profile, currentUser }) => {
           @{profile?.username}
         </SemiBoldText>
         {profile?.bio && (
-          <LightText className="text-center text-sm">
-            {profile.bio.length > 150
-              ? profile.bio.slice(0, 150) + "..."
-              : profile.bio}
-          </LightText>
+          <LightText className="text-center text-xs">{profile.bio}</LightText>
         )}
       </Container>
     </View>

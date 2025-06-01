@@ -6,7 +6,7 @@ import * as FileSystem from "expo-file-system";
 import { decode } from "base64-arraybuffer";
 
 // @ts-ignore
-import { EXPO_POSTS_BUCKET_NAME, EXPO_POSTS_BUCKET_URL } from "@env";
+import { EXPO_POSTS_BUCKET_POSTS, EXPO_POSTS_BUCKET_URL } from "@env";
 import CustomButton from "@/components/common/CustomButton";
 import ErrorText from "@/components/texts/ErrorText";
 import Container from "@/components/common/Container";
@@ -14,7 +14,7 @@ import ImageInput from "@/components/common/ImageInput";
 import BoldText from "@/components/texts/BoldText";
 import ContentInput from "@/components/post/ContentInput";
 
-const bucketName = EXPO_POSTS_BUCKET_NAME;
+const bucketName = EXPO_POSTS_BUCKET_POSTS;
 const bucketUrl = EXPO_POSTS_BUCKET_URL;
 
 const CreatePostScreen = () => {
@@ -33,7 +33,7 @@ const CreatePostScreen = () => {
   const onSelectImage = async () => {
     setImageError("");
     const options: ImagePicker.ImagePickerOptions = {
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ['images'],
       allowsEditing: true,
       quality: 1,
     };

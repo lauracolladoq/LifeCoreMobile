@@ -2,6 +2,7 @@ import ArrowIcon from "@/assets/icons/arrow-icon";
 import React from "react";
 import { View, Image, Text, TouchableOpacity } from "react-native";
 import SemiBoldText from "../texts/SemiBoldText";
+import { router } from "expo-router";
 
 interface Profile {
   avatar: string;
@@ -16,7 +17,7 @@ interface UserInfoProps {
 const UserInfo: React.FC<UserInfoProps> = ({ profile }) => {
   return (
     <TouchableOpacity
-      onPress={null}
+      onPress={() => router.push("/profile/edit")}
       className="bg-white rounded-3xl p-3 flex-row items-center gap-4 justify-start w-full shadow-md"
     >
       <Image

@@ -7,6 +7,7 @@ import Container from "@/components/common/Container";
 import BoldText from "@/components/texts/BoldText";
 import ContentInput from "@/components/post/ContentInput";
 import { router } from "expo-router";
+import ImageInput from "@/components/common/ImageInput";
 
 interface EditPostScreenProps {
   postId?: string;
@@ -90,22 +91,14 @@ const EditPostScreen: React.FC<EditPostScreenProps> = ({
     <Container className="flex flex-col justify-start h-full gap-3">
       <BoldText className="text-lg text-center">Edit Post</BoldText>
       <View className="gap-3">
-        {post.image && (
-          <View className="items-center">
-            <BoldText className="mb-2">Current Image</BoldText>
-            <Image
-              source={{ uri: post.image }}
-              style={{
-                height: 250,
-                borderRadius: 24,
-                overflow: "hidden",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              className="border-2 border-gray-300 rounded-3xl bg-gray-100 w-full"
-            />
-          </View>
-        )}
+                <ImageInput
+          label="Post Image"
+          imageUri={post.image}
+          height={250}
+          borderRadius={24}
+          onSelectImage={null}
+          showIcon={false}
+        />
         <View>
           <ContentInput
             label="Content"

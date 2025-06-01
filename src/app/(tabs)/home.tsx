@@ -9,12 +9,18 @@ import Container from "@/components/common/Container";
 
 const Home = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+  const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const verifyAuthStatus = async () => {
     try {
       const loggedIn = await checkAuthStatus();
       setIsLoggedIn(loggedIn);
+
+      if (loggedIn) {
+        const user = await getCurrentUser();
+        setCurrentUser(user);
+      }
     } catch (error) {
       console.error("Error verifying auth status:", error);
     } finally {
@@ -28,14 +34,8 @@ const Home = () => {
     verifyAuthStatus();
   }, []);
 
-  const [currentUser, setCurrentUser] = useState(null);
-
-  useEffect(() => {
-    getCurrentUser().then(setCurrentUser);
-  }, []);
-
-  // Wait for auth status and current user to be ready
-  if (loading || !currentUser) {
+  // Show loading screen while checking authentication or fetching user data
+  if (loading) {
     return (
       <View className="flex-1 justify-center items-center">
         <ActivityIndicator size="large" color="#0000ff" />
@@ -43,6 +43,7 @@ const Home = () => {
     );
   }
 
+  // Show the appropriate screen based on authentication status
   return isLoggedIn ? (
     <Container>
       <HomeScreen currentUser={currentUser} />

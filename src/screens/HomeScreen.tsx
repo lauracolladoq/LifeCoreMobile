@@ -4,6 +4,7 @@ import {
   FlatList,
   ActivityIndicator,
   RefreshControl,
+  Text,
 } from "react-native";
 import { fetchFollowingPosts } from "../lib/postsService";
 import PostCard from "../components/post/PostCard";
@@ -83,7 +84,7 @@ const HomeScreen = ({ currentUser }) => {
 
   if (followingCount === 0) {
     return (
-      <Container className="flex-1 justify-center items-center gap-3">
+      <Container className="justify-center items-center h-full">
         <SemiBoldText className="text-center mb-2">
           You are not following anyone yet.
         </SemiBoldText>
@@ -99,7 +100,7 @@ const HomeScreen = ({ currentUser }) => {
       data={posts}
       keyExtractor={(item) => item.id.toString()}
       renderItem={({ item }) => <PostCard post={item} />}
-      contentContainerStyle={{ gap: 15}}
+      contentContainerStyle={{ gap: 15 }}
       showsVerticalScrollIndicator={false}
       refreshControl={
         <RefreshControl refreshing={loading} onRefresh={handleRefresh} />

@@ -12,6 +12,7 @@ import { Link, useRouter } from "expo-router";
 import BoldText from "@/components/texts/BoldText";
 import SemiBoldText from "@/components/texts/SemiBoldText";
 import ContainerScroll from "@/components/common/ContainerScroll";
+import PasswordIcon from "@/assets/icons/password-icon";
 
 AppState.addEventListener("change", (state) => {
   if (state === "active") {
@@ -136,95 +137,93 @@ export default function RegisterScreen() {
   }
 
   return (
-    <ContainerScroll>
-      <View className="gap-9">
-        {/* Register information */}
-        <View>
-          <BoldText className="text-xl">Create an account</BoldText>
-          <View className="flex-row">
-            <LightText className="mr-2">Already have an account?</LightText>
-            <Link href="/auth/login">
-              <SemiBoldText className="color-sky-300">Log in</SemiBoldText>
-            </Link>
-          </View>
+    <ContainerScroll style={{ gap: 20 }}>
+      {/* Register information */}
+      <View>
+        <BoldText className="text-xl">Create an account</BoldText>
+        <View className="flex-row">
+          <LightText className="mr-2">Already have an account?</LightText>
+          <Link href="/auth/login">
+            <SemiBoldText className="color-sky-300">Log in</SemiBoldText>
+          </Link>
         </View>
-        {/* Input fields */}
-        <View className="gap-3">
-          <View>
-            <CustomInput
-              label="Name"
-              onChangeText={setName}
-              value={name}
-              placeholder="Enter your full name"
-              autoCapitalize="words"
-            />
-            {nameError && <ErrorText>{nameError}</ErrorText>}
-          </View>
-          <View>
-            <CustomInput
-              label="Username"
-              onChangeText={setUsername}
-              value={username}
-              placeholder="Enter your username"
-              autoCapitalize="none"
-            />
-            {usernameError && <ErrorText>{usernameError}</ErrorText>}
-          </View>
-          <View>
-            <CustomInput
-              label="Email"
-              onChangeText={setEmail}
-              value={email}
-              placeholder="Enter your email"
-              autoCapitalize="none"
-              icon={<EmailIcon />}
-            />
-            {emailError && <ErrorText>{emailError}</ErrorText>}
-          </View>
-          <View>
-            <CustomInput
-              label="Password"
-              onChangeText={setPassword}
-              value={password}
-              secureTextEntry
-              placeholder="Enter your password"
-              autoCapitalize="none"
-              icon={<LockIcon />}
-            />
-            {passwordError && <ErrorText>{passwordError}</ErrorText>}
-          </View>
-          <View>
-            <CustomInput
-              label="Confirm Password"
-              onChangeText={setConfirmPassword}
-              value={confirmPassword}
-              secureTextEntry
-              placeholder="Confirm your password"
-              autoCapitalize="none"
-              icon={<LockIcon />}
-            />
-            {confirmPasswordError && (
-              <ErrorText>{confirmPasswordError}</ErrorText>
-            )}
-          </View>
-        </View>
-        {/* Register button */}
-        <CustomButton
-          title="Register"
-          disabled={loading}
-          onPress={signUpWithEmail}
-        />
-        {/* General error message */}
-        {generalError ? (
-          <View className="items-center">
-            {generalError && <ErrorText>{generalError}</ErrorText>}
-          </View>
-        ) : null}
-        {/* Providers */}
-        <LightText className="text-center color-gray-400">
-          or register with
-        </LightText>
       </View>
+      {/* Input fields */}
+      <View className="gap-3">
+        <View>
+          <CustomInput
+            label="Name"
+            onChangeText={setName}
+            value={name}
+            placeholder="Enter your full name"
+            autoCapitalize="words"
+          />
+          {nameError && <ErrorText>{nameError}</ErrorText>}
+        </View>
+        <View>
+          <CustomInput
+            label="Username"
+            onChangeText={setUsername}
+            value={username}
+            placeholder="Enter your username"
+            autoCapitalize="none"
+          />
+          {usernameError && <ErrorText>{usernameError}</ErrorText>}
+        </View>
+        <View>
+          <CustomInput
+            label="Email"
+            onChangeText={setEmail}
+            value={email}
+            placeholder="Enter your email"
+            autoCapitalize="none"
+            icon={<EmailIcon color="#D1D5DB" />}
+          />
+          {emailError && <ErrorText>{emailError}</ErrorText>}
+        </View>
+        <View>
+          <CustomInput
+            label="Password"
+            onChangeText={setPassword}
+            value={password}
+            secureTextEntry
+            placeholder="Enter your password"
+            autoCapitalize="none"
+            icon={<PasswordIcon color="#D1D5DB" />}
+          />
+          {passwordError && <ErrorText>{passwordError}</ErrorText>}
+        </View>
+        <View>
+          <CustomInput
+            label="Confirm Password"
+            onChangeText={setConfirmPassword}
+            value={confirmPassword}
+            secureTextEntry
+            placeholder="Confirm your password"
+            autoCapitalize="none"
+            icon={<PasswordIcon color="#D1D5DB" />}
+          />
+          {confirmPasswordError && (
+            <ErrorText>{confirmPasswordError}</ErrorText>
+          )}
+        </View>
+      </View>
+      {/* Register button */}
+      <CustomButton
+        title="Register"
+        disabled={loading}
+        onPress={signUpWithEmail}
+      />
+      {/* General error message */}
+      {generalError ? (
+        <View className="items-center">
+          {generalError && <ErrorText>{generalError}</ErrorText>}
+        </View>
+      ) : null}
+      {/* Providers */}
+      <LightText className="text-center color-gray-400">
+        or register with
+      </LightText>
     </ContainerScroll>
   );
 }

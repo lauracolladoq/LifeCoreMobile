@@ -11,6 +11,7 @@ import LockIcon from "@/assets/icons/password-icon";
 import { Link, useRouter } from "expo-router";
 import BoldText from "@/components/texts/BoldText";
 import SemiBoldText from "@/components/texts/SemiBoldText";
+import PasswordIcon from "@/assets/icons/password-icon";
 
 AppState.addEventListener("change", (state) => {
   if (state === "active") {
@@ -99,7 +100,7 @@ export default function LoginScreen() {
             value={email}
             placeholder="Enter your email"
             autoCapitalize={"none"}
-            icon={<EmailIcon />}
+            icon={<EmailIcon color="#D1D5DB" />}
           />
           {emailError && <ErrorText>{emailError}</ErrorText>}
         </View>
@@ -111,7 +112,7 @@ export default function LoginScreen() {
             secureTextEntry={true}
             placeholder="Enter your password"
             autoCapitalize={"none"}
-            icon={<LockIcon />}
+            icon={<PasswordIcon  color="#D1D5DB" />}
           />
           {passwordError && <ErrorText>{passwordError}</ErrorText>}
         </View>

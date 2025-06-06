@@ -46,12 +46,28 @@ export default function RegisterScreen() {
     password === confirmPassword;
   const validateUsername = (username) => username.trim().length >= 3;
   const validateName = (name) => name.trim().length >= 3;
-  // const validateUsernameUnique = async (username) => {
-  //   const { data, error } = await supabase
-  //     .from("profiles")
-  //     .select()
-  //     .eq("username", username);
-  // };
+  const validateUsernameUnique = async (username) => {
+    try {
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("username");
+
+      if (error) {
+        console.error("Error fetching usernames:", error);
+        return false;
+      }
+
+      // Convert the data array into a list of usernames
+      const usernames = data.map((profile) => profile.username);
+      console.log("Fetched usernames:", usernames);
+
+      // Check if the provided username already exists
+      return !usernames.includes(username);
+    } catch (err) {
+      console.error("Unexpected error:", err);
+      return false;
+    }
+  };
 
   const resetForm = () => {
     setEmail("");
@@ -98,6 +114,13 @@ export default function RegisterScreen() {
     }
     if (!validateName(name)) {
       setNameError("Name must be at least 3 characters.");
+      setLoading(false);
+      return;
+    }
+
+    const isUnique = await validateUsernameUnique(username);
+    if (!isUnique) {
+      setUsernameError("This username is already taken.");
       setLoading(false);
       return;
     }

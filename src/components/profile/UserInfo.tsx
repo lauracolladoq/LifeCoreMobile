@@ -6,6 +6,7 @@ import SemiBoldText from "../texts/SemiBoldText";
 import BoldText from "../texts/BoldText";
 import FollowToggle from "./FollowToggle";
 import { getFollowersCount, getFollowingCount } from "@/lib/followService";
+import TinyText from "../texts/TinyText";
 
 const UserInfo = ({ profile, currentUser }) => {
   const [followersCount, setFollowersCount] = useState(0);
@@ -53,21 +54,21 @@ const UserInfo = ({ profile, currentUser }) => {
       <View className="flex-row justify-around w-full -mt-8">
         <View className="items-center">
           <SemiBoldText>{followersCount}</SemiBoldText>
-          <LightText className="text-gray-400 text-xs">Followers</LightText>
+          <TinyText className="text-gray-400">Followers</TinyText>
         </View>
         <View className="items-center">
           <SemiBoldText>{followingCount}</SemiBoldText>
-          <LightText className="text-gray-400 text-xs">Following</LightText>
+          <TinyText className="text-gray-400">Following</TinyText>
         </View>
       </View>
       {/* Profile Info */}
-      <Container className="items-center -mt-8 -mb-4">
+      <Container className="items-center -mt-4 -mb-4">
         <BoldText>{profile?.name}</BoldText>
-        <SemiBoldText className="text-gray-400 text-sm">
+        <SemiBoldText className="text-gray-400">
           @{profile?.username}
         </SemiBoldText>
         {profile?.bio && (
-          <LightText className="text-center text-xs">{profile.bio}</LightText>
+          <TinyText className="text-center">{profile.bio}</TinyText>
         )}
       </Container>
     </View>

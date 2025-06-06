@@ -52,7 +52,7 @@ const FollowToggle = ({ currentUser, profile }) => {
       style={{ backgroundColor: "#FFFFFF90" }}
     >
       {isFollowing ? <FollowingIcon /> : <FollowIcon />}
-      <SemiBoldText className="text-xs">
+      <SemiBoldText>
         {isFollowing ? "Following" : "Follow"}
       </SemiBoldText>
     </TouchableOpacity>

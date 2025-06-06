@@ -15,19 +15,16 @@ const ContentInput: React.FC<ContentInputProps> = ({
 
   return (
     <View>
-      <LightText className="mb-2 text-sm">{label}</LightText>
-      <View className="flex-row justify-between items-center py-2 px-3 rounded-3xl border-2 border-solid border-gray-300">
+      <LightText className="mb-2">{label}</LightText>
+      <View className="flex-row justify-between items-center py-1 px-2 rounded-3xl border-2 border-solid border-gray-300">
         <TextInput
           multiline
           onContentSizeChange={(e) => {
             const newHeight = e.nativeEvent.contentSize.height;
             setHeight(Math.min(newHeight, 240));
           }}
-          className="text-xs overflow-auto"
-          style={[
-            { fontFamily: "Nunito-Light", height }, 
-            style,
-          ]}
+          className="overflow-auto"
+          style={[{ fontFamily: "Nunito-Light", fontSize: 10, height }, style]}
           {...props}
         />
       </View>

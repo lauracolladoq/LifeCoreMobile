@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, ActivityIndicator } from "react-native";
 import { useLocalSearchParams } from "expo-router";
-import { fetchUserProfile } from "@/lib/fetchUserProfile";
+import { fetchUserProfile } from "@/lib/profileService";
 import { fetchUserPosts } from "@/lib/postsService";
 import { getCurrentUser } from "@/lib/authService";
 import UserInfo from "@/components/profile/UserInfo";

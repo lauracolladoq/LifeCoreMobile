@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { View, Alert, Image, ActivityIndicator } from "react-native";
+import { View, Alert, ActivityIndicator } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { supabase } from "@/lib/supabase";
 import CustomButton from "@/components/common/CustomButton";
 import ErrorText from "@/components/texts/ErrorText";
-import BoldText from "@/components/texts/BoldText";
 import CustomInput from "@/components/common/CustomInput";
 import * as FileSystem from "expo-file-system";
 import ContainerScroll from "@/components/common/ContainerScroll";
@@ -18,7 +17,8 @@ import {
 } from "@env";
 import ImageInput from "@/components/common/ImageInput";
 import { router } from "expo-router";
-import { fetchUserProfile } from "@/lib/fetchUserProfile";
+import { fetchUserProfile } from "@/lib/profileService";
+import H1 from "@/components/texts/H1";
 
 const BUCKET_AVATAR = EXPO_POSTS_BUCKET_PROFILE_PICTURES;
 const BUCKET_BANNER = EXPO_POSTS_BUCKET_BANNERS;
@@ -223,8 +223,8 @@ const EditProfileScreen = () => {
   if (loading) return <ActivityIndicator size="large" style={{ flex: 1 }} />;
 
   return (
-    <ContainerScroll style={{ gap: 15 }}>
-      <BoldText className="text-xl text-center">Edit Profile</BoldText>
+    <ContainerScroll>
+      <H1 className="text-center">Edit Profile</H1>
       <View className="gap-3">
         <View>
           <CustomInput

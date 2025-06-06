@@ -15,14 +15,14 @@ const CustomInput: React.FC<CustomInputProps> = ({
 }) => {
   return (
     <View>
-      <LightText className="mb-2 text-sm">{label}</LightText>
+      <LightText className="mb-2">{label}</LightText>
       <View
-        className="flex-row justify-between items-center py-2 px-3 rounded-3xl border-2 border-solid border-gray-300"
+        className="flex-row justify-between items-center py-1 px-2 rounded-3xl border-2 border-solid border-gray-300"
         style={[style]}
       >
         <TextInput
-          className="text-xs flex-1"
-          style={{ fontFamily: "Nunito-Light" }}
+          className="flex-1"
+          style={{ fontFamily: "Nunito-Light", fontSize: 10 }}
           {...props}
         />
         {icon && <View>{icon}</View>}

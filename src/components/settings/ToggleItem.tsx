@@ -17,7 +17,7 @@ const ToggleItem: React.FC<ToggleItemItemProps> = ({ icon, title, onPress }) => 
     >
       <View className="flex-row items-center gap-3">
         <View>{icon}</View>
-        <LightText className="text-sm">{title}</LightText>
+        <LightText>{title}</LightText>
       </View>
       <ToggleOffIcon />
     </TouchableOpacity>

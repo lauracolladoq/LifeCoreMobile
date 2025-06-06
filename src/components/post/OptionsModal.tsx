@@ -70,7 +70,7 @@ const OptionsModal: React.FC<OptionsModalProps> = ({
               <View className="justify-center items-center gap-1">
                 <EditIcon />
                 <Link href={`/posts/${post.id}/edit`} onPress={onClose}>
-                  <BoldText className="text-lg">Edit</BoldText>
+                  <BoldText>Edit</BoldText>
                 </Link>
               </View>
             </View>
@@ -81,7 +81,7 @@ const OptionsModal: React.FC<OptionsModalProps> = ({
                 onPress={handleDelete}
               >
                 <DeleteIcon />
-                <BoldText className="text-lg text-red-600">Delete</BoldText>
+                <BoldText className="text-red-600">Delete</BoldText>
               </TouchableOpacity>
             </View>
           </View>

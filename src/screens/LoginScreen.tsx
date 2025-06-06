@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { View, AppState } from "react-native";
 import { supabase } from "../lib/supabase";
 import CustomButton from "../components/common/CustomButton";
@@ -7,11 +7,11 @@ import ErrorText from "@/components/texts/ErrorText";
 import Container from "@/components/common/Container";
 import CustomInput from "@/components/common/CustomInput";
 import EmailIcon from "@/assets/icons/email-icon";
-import LockIcon from "@/assets/icons/password-icon";
 import { Link, useRouter } from "expo-router";
-import BoldText from "@/components/texts/BoldText";
 import SemiBoldText from "@/components/texts/SemiBoldText";
 import PasswordIcon from "@/assets/icons/password-icon";
+import H1 from "@/components/texts/H1";
+import ContainerScroll from "@/components/common/ContainerScroll";
 
 AppState.addEventListener("change", (state) => {
   if (state === "active") {
@@ -80,10 +80,10 @@ export default function LoginScreen() {
   }
 
   return (
-    <Container className="flex-1 justify-start gap-9">
+    <ContainerScroll>
       {/* Login information */}
-      <View>
-        <BoldText className="text-xl">Sign in to your account</BoldText>
+      <View >
+        <H1>Sign in to your account</H1>
         <View className="flex-row">
           <LightText className="mr-2">Don't have an account yet?</LightText>
           <Link href="/auth/register">
@@ -133,6 +133,6 @@ export default function LoginScreen() {
       <LightText className="text-center color-gray-400">
         or continue with
       </LightText>
-    </Container>
+    </ContainerScroll>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import UserInfo from "@/components/settings/UserInfo";
 import { supabase } from "@/lib/supabase";
-import { fetchUserProfile } from "@/lib/fetchUserProfile";
+import { fetchUserProfile } from "@/lib/profileService";
 import { View, ActivityIndicator } from "react-native";
 import BoldText from "@/components/texts/BoldText";
 import SemiBoldText from "@/components/texts/SemiBoldText";
@@ -12,6 +12,7 @@ import CustomButton from "@/components/common/CustomButton";
 import ContainerScroll from "@/components/common/ContainerScroll";
 
 import { useRouter } from "expo-router";
+import H1 from "@/components/texts/H1";
 
 const SettingsScreen = () => {
   const [profile, setProfile] = useState(null);
@@ -67,19 +68,19 @@ const SettingsScreen = () => {
 
   return (
     <ContainerScroll style={{ gap: 15 }}>
-      <BoldText className="text-xl text-center">Settings</BoldText>
+      <H1 className="text-center">Settings</H1>
       <UserInfo profile={{ ...profile, email }} />
 
       <View className="gap-2">
-        <SemiBoldText className="text-sm">Security & Verification</SemiBoldText>
+        <SemiBoldText>Security & Verification</SemiBoldText>
         <SecurityVerificationItems />
       </View>
       <View className="gap-2">
-        <SemiBoldText className="text-sm">About & Legal</SemiBoldText>
+        <SemiBoldText>About & Legal</SemiBoldText>
         <AboutLegalItems />
       </View>
       <View className="gap-2">
-        <SemiBoldText className="text-sm">Other settings</SemiBoldText>
+        <SemiBoldText>Other settings</SemiBoldText>
         <OtherSettings />
       </View>
       <CustomButton title="Logout" onPress={handleLogout} />

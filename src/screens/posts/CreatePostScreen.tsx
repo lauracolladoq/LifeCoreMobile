@@ -11,8 +11,8 @@ import CustomButton from "@/components/common/CustomButton";
 import ErrorText from "@/components/texts/ErrorText";
 import Container from "@/components/common/Container";
 import ImageInput from "@/components/common/ImageInput";
-import BoldText from "@/components/texts/BoldText";
 import ContentInput from "@/components/post/ContentInput";
+import H1 from "@/components/texts/H1";
 
 const bucketName = EXPO_POSTS_BUCKET_POSTS;
 const bucketUrl = EXPO_POSTS_BUCKET_URL;
@@ -147,8 +147,8 @@ const CreatePostScreen = () => {
   };
 
   return (
-    <Container className="flex flex-col justify-start h-full gap-3">
-      <BoldText className="text-lg text-center">New post</BoldText>
+    <Container className="flex flex-col justify-start h-full gap-6">
+      <H1 className="text-center">New post</H1>
       {/* Input fiels */}
       <View className="gap-3">
         <View>

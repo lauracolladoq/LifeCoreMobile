@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { View, Alert, Image, ActivityIndicator } from "react-native";
+import { View, Alert, ActivityIndicator } from "react-native";
 import { supabase } from "@/lib/supabase";
 import CustomButton from "@/components/common/CustomButton";
 import ErrorText from "@/components/texts/ErrorText";
 import Container from "@/components/common/Container";
-import BoldText from "@/components/texts/BoldText";
 import ContentInput from "@/components/post/ContentInput";
 import { router } from "expo-router";
 import ImageInput from "@/components/common/ImageInput";
+import H1 from "@/components/texts/H1";
 
 interface EditPostScreenProps {
   postId?: string;
@@ -88,8 +88,8 @@ const EditPostScreen: React.FC<EditPostScreenProps> = ({
   if (loading) return <ActivityIndicator size="large" style={{ flex: 1 }} />;
 
   return (
-    <Container className="flex flex-col justify-start h-full gap-3">
-      <BoldText className="text-lg text-center">Edit Post</BoldText>
+    <Container className="flex flex-col justify-start h-full gap-6">
+      <H1 className="text-center">Edit Post</H1>
       <View className="gap-3">
                 <ImageInput
           label="Post Image"

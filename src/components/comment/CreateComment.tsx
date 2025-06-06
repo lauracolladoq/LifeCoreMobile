@@ -41,8 +41,8 @@ const CreateComment = ({
   return (
     <View className="flex-row justify-between items-center py-2 px-3 rounded-3xl border-2 border-solid border-gray-300">
       <TextInput
-        className="text-xs flex-1"
-        style={{ fontFamily: "Nunito-Light" }}
+        className="flex-1 py-1 px-2"
+        style={{ fontFamily: "Nunito-Light", fontSize: 10 }}
         placeholder="Write a comment..."
         value={content}
         onChangeText={setContent}

@@ -4,15 +4,13 @@ import { supabase } from "../lib/supabase";
 import CustomButton from "../components/common/CustomButton";
 import LightText from "@/components/texts/LightText";
 import ErrorText from "@/components/texts/ErrorText";
-import Container from "@/components/common/Container";
 import CustomInput from "@/components/common/CustomInput";
 import EmailIcon from "@/assets/icons/email-icon";
-import LockIcon from "@/assets/icons/password-icon";
 import { Link, useRouter } from "expo-router";
-import BoldText from "@/components/texts/BoldText";
 import SemiBoldText from "@/components/texts/SemiBoldText";
 import ContainerScroll from "@/components/common/ContainerScroll";
 import PasswordIcon from "@/assets/icons/password-icon";
+import H1 from "@/components/texts/H1";
 
 AppState.addEventListener("change", (state) => {
   if (state === "active") {
@@ -137,10 +135,10 @@ export default function RegisterScreen() {
   }
 
   return (
-    <ContainerScroll style={{ gap: 20 }}>
+    <ContainerScroll>
       {/* Register information */}
       <View>
-        <BoldText className="text-xl">Create an account</BoldText>
+        <H1>Create an account</H1>
         <View className="flex-row">
           <LightText className="mr-2">Already have an account?</LightText>
           <Link href="/auth/login">

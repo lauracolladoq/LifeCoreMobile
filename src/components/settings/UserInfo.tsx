@@ -29,7 +29,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ profile }) => {
       />
       <View>
         <SemiBoldText>{profile.username}</SemiBoldText>
-        <SemiBoldText className=" text-xs text-gray-400">
+        <SemiBoldText className="text-gray-400">
           {profile.email}
         </SemiBoldText>
       </View>

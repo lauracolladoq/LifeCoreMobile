@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, FlatList, Text } from "react-native";
+import { View, FlatList } from "react-native";
 import { supabase } from "@/lib/supabase";
 import {
   getCommentsForPost,
@@ -9,6 +9,7 @@ import {
 import { fetchUserProfile } from "@/lib/profileService";
 import CreateComment from "./CreateComment";
 import CommentCard from "./CommentCard";
+import LightText from "../texts/LightText";
 
 const Comments = ({ postId }: { postId: string }) => {
   const [comments, setComments] = useState<any[]>([]);
@@ -79,7 +80,15 @@ const Comments = ({ postId }: { postId: string }) => {
             onDelete={handleDelete}
           />
         )}
-        ListEmptyComponent={() => !loading && <Text>No comments</Text>}
+        ListEmptyComponent={() =>
+          !loading && (
+            <View className="flex-1 justify-center items-center">
+              <LightText className="text-center">
+                No comments available yet.
+              </LightText>
+            </View>
+          )
+        }
       />
       {currentUser && username && (
         <CreateComment

@@ -12,6 +12,7 @@ import SemiBoldText from "@/components/texts/SemiBoldText";
 import { useIsFocused } from "@react-navigation/native";
 import { getFollowingCount } from "@/lib/followService";
 import Container from "@/components/common/Container";
+import TinyText from "@/components/texts/TinyText";
 
 const HomeScreen = ({ currentUser }) => {
   const [posts, setPosts] = useState([]);
@@ -88,9 +89,9 @@ const HomeScreen = ({ currentUser }) => {
         <SemiBoldText className="text-center mb-2">
           You are not following anyone yet.
         </SemiBoldText>
-        <SemiBoldText className="text-center text-sm text-sky-300">
+        <TinyText className="text-center text-sky-300">
           Explore and follow people to see their posts here!
-        </SemiBoldText>
+        </TinyText>
       </Container>
     );
   }

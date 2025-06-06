@@ -4,6 +4,7 @@ import LightText from "@/components/texts/LightText";
 import CommentIcon from "@/assets/icons/comment-icon";
 import Like from "./Like";
 import { checkAuthStatus } from "@/utils/authCheck";
+import TinyText from "../texts/TinyText";
 
 const PostInfo = ({ post }: { post: any }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -46,16 +47,16 @@ const PostInfo = ({ post }: { post: any }) => {
           ) : null}
           <CommentIcon />
         </View>
-        <LightText className="text-gray-500 text-[8px] self-start">
+        <TinyText className="text-gray-500 self-start">
           {post.created_at
             ? new Date(post.created_at).toLocaleDateString()
             : "Unknown Date"}
-        </LightText>
+        </TinyText>
       </View>
       {post.content && (
         <View>
-          <LightText
-            className={`text-xs ${!isExpanded ? "text-ellipsis" : ""}`}
+          <TinyText
+            className={`${!isExpanded ? "text-ellipsis" : ""}`}
             numberOfLines={isExpanded ? undefined : 1}
             onTextLayout={(e) => {
               // Check if the number of lines exceeds 1
@@ -63,12 +64,12 @@ const PostInfo = ({ post }: { post: any }) => {
             }}
           >
             {post.content}
-          </LightText>
+          </TinyText>
           {isOverflowing && (
             <TouchableOpacity onPress={toggleContent}>
-              <LightText className="text-gray-500 text-xs mt-1">
+              <TinyText className="text-gray-500 mt-1">
                 {isExpanded ? "See Less" : "See More"}
-              </LightText>
+              </TinyText>
             </TouchableOpacity>
           )}
         </View>

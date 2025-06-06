@@ -26,7 +26,7 @@ const Item: React.FC<ItemProps> = ({
     >
       <View className="flex-row items-center gap-3">
         <View>{icon}</View>
-        <LightText className="text-sm">{title}</LightText>
+        <LightText>{title}</LightText>
       </View>
       <ArrowIcon />
     </TouchableOpacity>

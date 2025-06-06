@@ -5,6 +5,7 @@ import PostInfo from "./PostInfo";
 import OptionsIcon from "@/assets/icons/options-icon";
 import OptionsModal from "./OptionsModal";
 import { getCurrentUser } from "@/lib/authService";
+import Comments from "../comment/Comments";
 
 const PostCard = ({ post }: { post: any }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -23,6 +24,8 @@ const PostCard = ({ post }: { post: any }) => {
         </TouchableOpacity>
       </View>
       <PostInfo post={post} />
+      <Comments postId={post.id} />
+
       <OptionsModal
         visible={modalVisible}
         onClose={() => setModalVisible(false)}

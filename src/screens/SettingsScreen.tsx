@@ -73,7 +73,7 @@ const SettingsScreen = () => {
 
       <View className="gap-2">
         <SemiBoldText>Security & Verification</SemiBoldText>
-        <SecurityVerificationItems />
+        <SecurityVerificationItems email={email} />
       </View>
       <View className="gap-2">
         <SemiBoldText>About & Legal</SemiBoldText>

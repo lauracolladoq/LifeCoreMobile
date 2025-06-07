@@ -5,29 +5,20 @@ import EmailIcon from "@/assets/icons/email-icon";
 import PhoneVerificationIcon from "@/assets/icons/phone-verification-icon";
 import ResetPasswordIcon from "@/assets/icons/reset-password-icon";
 import PasswordIcon from "@/assets/icons/password-icon";
+import { resetPassword, sendVerificationEmail } from "@/lib/securityService";
 
-const SecurityVerificationItems = () => {
+const SecurityVerificationItems = ({ email }: { email: string }) => {
   return (
     <View className="bg-white rounded-3xl p-2 gap-3 items-center justify-between w-full shadow-md">
       <Item
         icon={<EmailIcon />}
         title="Verify email address"
-        onPress={() => alert("Go to profile settings")}
+        onPress={() => sendVerificationEmail(email)}
         isFirst
       />
       <Item
-        icon={<PhoneVerificationIcon />}
-        title="Phone number verification"
-        onPress={() => alert("Go to profile settings")}
-      />
-      <Item
-        icon={<PasswordIcon />}
-        title="Change password"
-        onPress={() => alert("Go to profile settings")}
-      />
-      <Item
         icon={<ResetPasswordIcon />}
-        title="Password reset"
+        title="Reset password"
         onPress={() => alert("Go to profile settings")}
         isLast
       />

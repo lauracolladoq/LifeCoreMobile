@@ -4,6 +4,7 @@ import * as ImagePicker from "expo-image-picker";
 import { supabase } from "@/lib/supabase";
 import * as FileSystem from "expo-file-system";
 import { decode } from "base64-arraybuffer";
+import toastConfig from "@/../toastConfig";
 
 // @ts-ignore
 import { EXPO_POSTS_BUCKET_POSTS, EXPO_POSTS_BUCKET_URL } from "@env";
@@ -13,6 +14,8 @@ import Container from "@/components/common/Container";
 import ImageInput from "@/components/common/ImageInput";
 import ContentInput from "@/components/post/ContentInput";
 import H1 from "@/components/texts/H1";
+import { sucessNotification } from "@/utils/showNotification";
+import { router } from "expo-router";
 
 const bucketName = EXPO_POSTS_BUCKET_POSTS;
 const bucketUrl = EXPO_POSTS_BUCKET_URL;
@@ -33,7 +36,7 @@ const CreatePostScreen = () => {
   const onSelectImage = async () => {
     setImageError("");
     const options: ImagePicker.ImagePickerOptions = {
-      mediaTypes: ['images'],
+      mediaTypes: ["images"],
       allowsEditing: true,
       quality: 1,
     };
@@ -114,7 +117,7 @@ const CreatePostScreen = () => {
         throw error;
       }
 
-      const publicUrl = `${PUBLIC_URL_BASE}/${filePath}`;
+      const publicUrl = `${PUBLIC_URL_BASE}/${BUCKET_NAME}/${filePath}`;
 
       // Create a new post with the uploaded image
       const { error: insertError } = await supabase.from("posts").insert({
@@ -136,9 +139,10 @@ const CreatePostScreen = () => {
         throw insertError;
       }
 
-      Alert.alert("", "Post created successfully!");
       setContent("");
       setSelectedImage(null);
+      router.push("/profile");
+      sucessNotification("Post created successfully!");
     } catch (error: any) {
       setGeneralError("Error creating the post: " + error.message);
     } finally {
@@ -178,6 +182,7 @@ const CreatePostScreen = () => {
         />
       </View>
       {generalError ? <ErrorText>{generalError}</ErrorText> : null}
+      {/* <Toast config={toastConfig} /> */}
     </Container>
   );
 };

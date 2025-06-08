@@ -59,7 +59,6 @@ export default function RegisterScreen() {
 
       // Convert the data array into a list of usernames
       const usernames = data.map((profile) => profile.username);
-      console.log("Fetched usernames:", usernames);
 
       // Check if the provided username already exists
       return !usernames.includes(username);

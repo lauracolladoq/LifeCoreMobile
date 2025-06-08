@@ -5,7 +5,7 @@ import SemiBoldText from "../texts/SemiBoldText";
 const CustomButton = ({ title, onPress, disabled = false }) => {
   return (
     <TouchableOpacity
-      className="bg-sky-300 p-2 rounded-full items-center"
+      className="bg-sky-300 p-2 rounded-full items-center justify-center"
       onPress={onPress}
       disabled={disabled}
     >

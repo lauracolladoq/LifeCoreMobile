@@ -19,6 +19,7 @@ import ImageInput from "@/components/common/ImageInput";
 import { router } from "expo-router";
 import { fetchUserProfile } from "@/lib/profileService";
 import H1 from "@/components/texts/H1";
+import { sucessNotification } from "@/utils/showNotification";
 
 const BUCKET_AVATAR = EXPO_POSTS_BUCKET_PROFILE_PICTURES;
 const BUCKET_BANNER = EXPO_POSTS_BUCKET_BANNERS;
@@ -211,7 +212,7 @@ const EditProfileScreen = () => {
 
       if (error) throw error;
 
-      Alert.alert("Success", "Profile updated successfully!");
+      sucessNotification("Profile updated successfully!");
       router.back();
     } catch (error: any) {
       setGeneralError(error.message || "Error updating profile");

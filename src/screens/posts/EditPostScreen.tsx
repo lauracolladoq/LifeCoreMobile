@@ -8,6 +8,7 @@ import ContentInput from "@/components/post/ContentInput";
 import { router } from "expo-router";
 import ImageInput from "@/components/common/ImageInput";
 import H1 from "@/components/texts/H1";
+import { sucessNotification } from "@/utils/showNotification";
 
 interface EditPostScreenProps {
   postId?: string;
@@ -75,13 +76,13 @@ const EditPostScreen: React.FC<EditPostScreenProps> = ({
         throw error;
       }
 
-      Alert.alert("", "Post updated successfully!");
       if (onUpdateSuccess) onUpdateSuccess();
     } catch (error: any) {
       setGeneralError("Error updating the post: " + error.message);
     } finally {
       setSaving(false);
-      router.back();
+      router.push("/profile");
+      sucessNotification("Post updated successfully!");
     }
   };
 
@@ -91,7 +92,7 @@ const EditPostScreen: React.FC<EditPostScreenProps> = ({
     <Container className="flex flex-col justify-start h-full gap-6">
       <H1 className="text-center">Edit Post</H1>
       <View className="gap-3">
-                <ImageInput
+        <ImageInput
           label="Post Image"
           imageUri={post.image}
           height={250}

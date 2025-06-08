@@ -1,12 +1,14 @@
 import React from "react";
-import { View, Modal, TouchableOpacity, Alert, Text } from "react-native";
-import { Link } from "expo-router";
+import { View, Modal, TouchableOpacity } from "react-native";
+import { Link, router } from "expo-router";
 import Container from "../common/Container";
 import BoldText from "../texts/BoldText";
 import EditIcon from "@/assets/icons/edit-icon";
 import DeleteIcon from "@/assets/icons/delete-icon";
 import CloseIcon from "@/assets/icons/close-icon";
 import { supabase } from "@/lib/supabase";
+import Toast from "react-native-toast-message";
+import { sucessNotification } from "@/utils/showNotification";
 
 interface OptionsModalProps {
   visible: boolean;
@@ -39,11 +41,30 @@ const OptionsModal: React.FC<OptionsModalProps> = ({
         throw new Error(`Error deleting post: ${deleteError.message}`);
       }
 
-      Alert.alert("", "Post deleted successfully!");
+      router.push("/profile")
+      sucessNotification("Post deleted successfully!");
       onClose();
+
     } catch (error: any) {
-      Alert.alert("Error", error.message);
+      console.log("Error deleting post:", error);
     }
+  };
+
+  const confirmDelete = () => {
+    Toast.show({
+      type: "confirmation",
+      text1: "Are you sure you want to delete this post?",
+      props: {
+        onYes: () => {
+          handleDelete();
+          Toast.hide();
+        },
+        onNo: () => {
+          Toast.hide();
+        },
+      },
+      autoHide: false,
+    });
   };
 
   return (
@@ -78,7 +99,7 @@ const OptionsModal: React.FC<OptionsModalProps> = ({
             <View className="bg-white rounded-3xl py-5 w-1/3 shadow-2xl">
               <TouchableOpacity
                 className="justify-center items-center gap-1"
-                onPress={handleDelete}
+                onPress={confirmDelete}
               >
                 <DeleteIcon />
                 <BoldText className="text-red-600">Delete</BoldText>

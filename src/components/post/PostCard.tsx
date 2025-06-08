@@ -19,9 +19,11 @@ const PostCard = ({ post }: { post: any }) => {
     <View className="bg-white rounded-3xl p-4 shadow-md gap-3">
       <View className="flex-row items-center justify-between">
         <ProfileInfo user={post.user} currentUser={currentUser} />
-        <TouchableOpacity onPress={() => setModalVisible(true)}>
-          <OptionsIcon />
-        </TouchableOpacity>
+        {currentUser?.id === post.user.id && (
+          <TouchableOpacity onPress={() => setModalVisible(true)}>
+            <OptionsIcon />
+          </TouchableOpacity>
+        )}
       </View>
       <PostInfo post={post} />
       <Comments postId={post.id} />

@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Modal, TouchableOpacity } from "react-native";
-import { Link, router } from "expo-router";
+import { router } from "expo-router";
 import Container from "../common/Container";
 import BoldText from "../texts/BoldText";
 import EditIcon from "@/assets/icons/edit-icon";
@@ -41,16 +41,16 @@ const OptionsModal: React.FC<OptionsModalProps> = ({
         throw new Error(`Error deleting post: ${deleteError.message}`);
       }
 
-      router.push("/profile")
+      router.push("/profile");
       sucessNotification("Post deleted successfully!");
       onClose();
-
     } catch (error: any) {
       console.log("Error deleting post:", error);
     }
   };
 
   const confirmDelete = () => {
+    onClose();
     Toast.show({
       type: "confirmation",
       text1: "Are you sure you want to delete this post?",
@@ -87,24 +87,24 @@ const OptionsModal: React.FC<OptionsModalProps> = ({
           {/* Options */}
           <View className="flex-row items-center justify-around px-5 py-5">
             {/* Edit Option */}
-            <View className="bg-white rounded-3xl py-5 w-1/3 shadow-2xl">
-              <View className="justify-center items-center gap-1">
-                <EditIcon />
-                <Link href={`/posts/${post.id}/edit`} onPress={onClose}>
-                  <BoldText>Edit</BoldText>
-                </Link>
-              </View>
-            </View>
+            <TouchableOpacity
+              className="bg-white rounded-3xl py-5 w-1/3 shadow-2xl justify-center items-center gap-1"
+              onPress={() => {
+                onClose();
+                router.push(`/posts/${post.id}/edit`);
+              }}
+            >
+              <EditIcon />
+              <BoldText>Edit</BoldText>
+            </TouchableOpacity>
             {/* Delete Option */}
-            <View className="bg-white rounded-3xl py-5 w-1/3 shadow-2xl">
-              <TouchableOpacity
-                className="justify-center items-center gap-1"
-                onPress={confirmDelete}
-              >
-                <DeleteIcon />
-                <BoldText className="text-red-600">Delete</BoldText>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+              className="bg-white rounded-3xl py-5 w-1/3 shadow-2xl justify-center items-center gap-1"
+              onPress={confirmDelete}
+            >
+              <DeleteIcon />
+              <BoldText className="text-red-600">Delete</BoldText>
+            </TouchableOpacity>
           </View>
         </Container>
       </View>

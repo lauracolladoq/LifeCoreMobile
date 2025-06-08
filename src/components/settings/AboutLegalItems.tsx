@@ -3,6 +3,7 @@ import Item from "@/components/settings/Item";
 import { View, ActivityIndicator } from "react-native";
 import TermsConditionsIcon from "@/assets/icons/terms-conditions-icon";
 import AboutIcon from "@/assets/icons/about-icon";
+import { router } from "expo-router";
 
 const AboutLegalItems = () => {
   return (
@@ -10,13 +11,13 @@ const AboutLegalItems = () => {
       <Item
         icon={<AboutIcon />}
         title="About us"
-        onPress={() => alert("Go to profile settings")}
+        onPress={() => router.push("/legal/about")}
         isFirst
       />
       <Item
         icon={<TermsConditionsIcon />}
         title="Terms and Conditions"
-        onPress={() => alert("Go to profile settings")}
+        onPress={() => router.push("/legal/terms")}
         isLast
       />
     </View>

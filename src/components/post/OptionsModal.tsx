@@ -1,14 +1,13 @@
 import React from "react";
-import { View, Modal, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import { router } from "expo-router";
-import Container from "../common/Container";
 import BoldText from "../texts/BoldText";
 import EditIcon from "@/assets/icons/edit-icon";
 import DeleteIcon from "@/assets/icons/delete-icon";
-import CloseIcon from "@/assets/icons/close-icon";
 import { supabase } from "@/lib/supabase";
 import Toast from "react-native-toast-message";
 import { sucessNotification } from "@/utils/showNotification";
+import Modal from "react-native-modal";
 
 interface OptionsModalProps {
   visible: boolean;
@@ -66,47 +65,44 @@ const OptionsModal: React.FC<OptionsModalProps> = ({
       autoHide: false,
     });
   };
-
   return (
     <Modal
-      transparent
-      visible={visible}
-      animationType="fade"
-      onRequestClose={onClose}
+      isVisible={visible}
+      onSwipeComplete={onClose}
+      swipeDirection="down"
+      onBackdropPress={null}
+      style={{ margin: 0, justifyContent: "flex-end" }}
+      backdropOpacity={0.5}
+      animationIn="slideInUp"
+      animationOut="slideOutDown"
+      animationInTiming={500}
+      animationOutTiming={500}
     >
-      <View
-        className="flex-1 justify-end"
-        style={{ backgroundColor: "#00000090" }}
-      >
-        <Container className="bg-white rounded-3xl rounded-b-none">
-          {/* Close button */}
-          <TouchableOpacity className="items-end pb-3" onPress={onClose}>
-            <CloseIcon />
+      <View className="bg-white rounded-t-3xl">
+        {/* Swipe Indicator */}
+        <View className="w-10 h-1.5 bg-gray-300 rounded-full self-center my-2" />
+        {/* Options */}
+        <View className="flex-row items-center justify-around px-5 py-5">
+          {/* Edit Option */}
+          <TouchableOpacity
+            className="bg-white rounded-3xl py-5 w-1/3 shadow-2xl justify-center items-center gap-1"
+            onPress={() => {
+              onClose();
+              router.push(`/posts/${post.id}/edit`);
+            }}
+          >
+            <EditIcon />
+            <BoldText>Edit</BoldText>
           </TouchableOpacity>
-
-          {/* Options */}
-          <View className="flex-row items-center justify-around px-5 py-5">
-            {/* Edit Option */}
-            <TouchableOpacity
-              className="bg-white rounded-3xl py-5 w-1/3 shadow-2xl justify-center items-center gap-1"
-              onPress={() => {
-                onClose();
-                router.push(`/posts/${post.id}/edit`);
-              }}
-            >
-              <EditIcon />
-              <BoldText>Edit</BoldText>
-            </TouchableOpacity>
-            {/* Delete Option */}
-            <TouchableOpacity
-              className="bg-white rounded-3xl py-5 w-1/3 shadow-2xl justify-center items-center gap-1"
-              onPress={confirmDelete}
-            >
-              <DeleteIcon />
-              <BoldText className="text-red-600">Delete</BoldText>
-            </TouchableOpacity>
-          </View>
-        </Container>
+          {/* Delete Option */}
+          <TouchableOpacity
+            className="bg-white rounded-3xl py-5 w-1/3 shadow-2xl justify-center items-center gap-1"
+            onPress={confirmDelete}
+          >
+            <DeleteIcon />
+            <BoldText className="text-red-600">Delete</BoldText>
+          </TouchableOpacity>
+        </View>
       </View>
     </Modal>
   );

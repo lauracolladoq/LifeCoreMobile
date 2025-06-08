@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { View, Image, TouchableOpacity, ActivityIndicator } from "react-native";
-import LightText from "@/components/texts/LightText";
 import CommentIcon from "@/assets/icons/comment-icon";
 import Like from "./Like";
 import { checkAuthStatus } from "@/utils/authCheck";
 import TinyText from "../texts/TinyText";
+import CommentModal from "../comment/CommentModal"; 
 
 const PostInfo = ({ post }: { post: any }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isAuthChecked, setIsAuthChecked] = useState<boolean>(false);
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [isOverflowing, setIsOverflowing] = useState<boolean>(false);
+  const [commentModalVisible, setCommentModalVisible] = useState(false);
 
   const toggleContent = () => setIsExpanded(!isExpanded);
 
@@ -37,15 +38,18 @@ const PostInfo = ({ post }: { post: any }) => {
       />
       <View className="flex-row justify-between items-center">
         <View className="flex-row items-center gap-2">
-          {isAuthenticated ? (
+          {isAuthenticated && (
             <Like
               key={post.id}
               postId={post.id}
               initialCount={post.likes_count}
               initiallyLiked={post.hasLiked}
             />
-          ) : null}
-          <CommentIcon />
+          )}
+
+          <TouchableOpacity onPress={() => setCommentModalVisible(true)}>
+            <CommentIcon />
+          </TouchableOpacity>
         </View>
         <TinyText className="text-gray-500 self-start">
           {post.created_at
@@ -58,10 +62,7 @@ const PostInfo = ({ post }: { post: any }) => {
           <TinyText
             className={`${!isExpanded ? "text-ellipsis" : ""}`}
             numberOfLines={isExpanded ? undefined : 1}
-            onTextLayout={(e) => {
-              // Check if the number of lines exceeds 1
-              setIsOverflowing(e.nativeEvent.lines.length > 1);
-            }}
+            onTextLayout={(e) => setIsOverflowing(e.nativeEvent.lines.length > 1)}
           >
             {post.content}
           </TinyText>
@@ -74,6 +75,11 @@ const PostInfo = ({ post }: { post: any }) => {
           )}
         </View>
       )}
+      <CommentModal
+        visible={commentModalVisible}
+        onClose={() => setCommentModalVisible(false)}
+        postId={post.id}
+      />
     </View>
   );
 };

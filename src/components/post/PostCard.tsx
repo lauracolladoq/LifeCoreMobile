@@ -26,8 +26,6 @@ const PostCard = ({ post }: { post: any }) => {
         )}
       </View>
       <PostInfo post={post} />
-      <Comments postId={post.id} />
-
       <OptionsModal
         visible={modalVisible}
         onClose={() => setModalVisible(false)}

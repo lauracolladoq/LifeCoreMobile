@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, AppState } from "react-native";
+import { View, AppState, TouchableOpacity } from "react-native";
 import { supabase } from "../lib/supabase";
 import CustomButton from "../components/common/CustomButton";
 import LightText from "@/components/texts/LightText";
@@ -12,6 +12,9 @@ import SemiBoldText from "@/components/texts/SemiBoldText";
 import PasswordIcon from "@/assets/icons/password-icon";
 import H1 from "@/components/texts/H1";
 import ContainerScroll from "@/components/common/ContainerScroll";
+import GoogleIcon from "@/assets/icons/oauth/google-icon";
+import GitHubIcon from "@/assets/icons/oauth/github-icon";
+import FacebookIcon from "@/assets/icons/oauth/facebook-icon";
 
 AppState.addEventListener("change", (state) => {
   if (state === "active") {
@@ -82,7 +85,7 @@ export default function LoginScreen() {
   return (
     <ContainerScroll>
       {/* Login information */}
-      <View >
+      <View>
         <H1>Sign in to your account</H1>
         <View className="flex-row">
           <LightText className="mr-2">Don't have an account yet?</LightText>
@@ -112,7 +115,7 @@ export default function LoginScreen() {
             secureTextEntry={true}
             placeholder="Enter your password"
             autoCapitalize={"none"}
-            icon={<PasswordIcon  color="#D1D5DB" />}
+            icon={<PasswordIcon color="#D1D5DB" />}
           />
           {passwordError && <ErrorText>{passwordError}</ErrorText>}
         </View>
@@ -133,6 +136,26 @@ export default function LoginScreen() {
       <LightText className="text-center color-gray-400">
         or continue with
       </LightText>
+      <View className="flex-row justify-evenly">
+        <TouchableOpacity
+          onPress={() => router.push("/inProgress")}
+          className="bg-white p-3 rounded-full shadow-md"
+        >
+          <GoogleIcon />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => router.push("/inProgress")}
+          className="bg-white p-3 rounded-full shadow-md"
+        >
+          <GitHubIcon />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => router.push("/inProgress")}
+          className="bg-white p-3 rounded-full shadow-md"
+        >
+          <FacebookIcon />
+        </TouchableOpacity>
+      </View>
     </ContainerScroll>
   );
 }

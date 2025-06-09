@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Alert, AppState } from "react-native";
+import { View, Alert, AppState, TouchableOpacity } from "react-native";
 import { supabase } from "../lib/supabase";
 import CustomButton from "../components/common/CustomButton";
 import LightText from "@/components/texts/LightText";
@@ -12,6 +12,9 @@ import ContainerScroll from "@/components/common/ContainerScroll";
 import PasswordIcon from "@/assets/icons/password-icon";
 import H1 from "@/components/texts/H1";
 import { sucessNotification } from "@/utils/showNotification";
+import GoogleIcon from "@/assets/icons/oauth/google-icon";
+import GitHubIcon from "@/assets/icons/oauth/github-icon";
+import FacebookIcon from "@/assets/icons/oauth/facebook-icon";
 
 AppState.addEventListener("change", (state) => {
   if (state === "active") {
@@ -246,9 +249,30 @@ export default function RegisterScreen() {
         </View>
       ) : null}
       {/* Providers */}
+      {/* Providers */}
       <LightText className="text-center color-gray-400">
         or register with
       </LightText>
+      <View className="flex-row justify-evenly">
+        <TouchableOpacity
+          onPress={() => router.push("/inProgress")}
+          className="bg-white p-3 rounded-full shadow-md"
+        >
+          <GoogleIcon />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => router.push("/inProgress")}
+          className="bg-white p-3 rounded-full shadow-md"
+        >
+          <GitHubIcon />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => router.push("/inProgress")}
+          className="bg-white p-3 rounded-full shadow-md"
+        >
+          <FacebookIcon />
+        </TouchableOpacity>
+      </View>
     </ContainerScroll>
   );
 }

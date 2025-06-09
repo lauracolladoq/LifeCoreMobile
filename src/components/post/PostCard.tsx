@@ -4,15 +4,14 @@ import ProfileInfo from "./ProfileInfo";
 import PostInfo from "./PostInfo";
 import OptionsIcon from "@/assets/icons/options-icon";
 import OptionsModal from "./OptionsModal";
-import { getCurrentUser } from "@/lib/authService";
-import Comments from "../comment/Comments";
+import { fetchCurrentUser } from "@/lib/authService";
 
 const PostCard = ({ post }: { post: any }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    getCurrentUser().then(setCurrentUser);
+    fetchCurrentUser().then(setCurrentUser);
   }, []);
 
   return (

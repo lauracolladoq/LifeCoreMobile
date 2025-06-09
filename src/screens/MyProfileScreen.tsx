@@ -5,7 +5,7 @@ import UserInfo from "@/components/profile/UserInfo";
 import { supabase } from "@/lib/supabase";
 import { formatPost } from "@/utils/formatPost";
 import { useRefreshOnFocus } from "@/utils/useRefreshOnFocus";
-import { getCurrentUser } from "@/lib/authService";
+import { fetchCurrentUser } from "@/lib/authService";
 
 const MyProfileScreen = () => {
   const [profile, setProfile] = useState(null);
@@ -15,7 +15,7 @@ const MyProfileScreen = () => {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    getCurrentUser().then(setCurrentUser);
+    fetchCurrentUser().then(setCurrentUser);
   }, []);
 
   const loadData = useCallback(async () => {

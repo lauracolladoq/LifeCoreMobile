@@ -1,7 +1,7 @@
 import { supabase } from "./supabase";
 import type { User } from "@supabase/supabase-js";
 
-export async function getCurrentUser(): Promise<User | null> {
+export async function fetchCurrentUser(): Promise<User | null> {
   try {
     const { data } = await supabase.auth.getUser();
 

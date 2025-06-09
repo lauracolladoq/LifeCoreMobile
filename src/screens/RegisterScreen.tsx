@@ -11,6 +11,7 @@ import SemiBoldText from "@/components/texts/SemiBoldText";
 import ContainerScroll from "@/components/common/ContainerScroll";
 import PasswordIcon from "@/assets/icons/password-icon";
 import H1 from "@/components/texts/H1";
+import { sucessNotification } from "@/utils/showNotification";
 
 AppState.addEventListener("change", (state) => {
   if (state === "active") {
@@ -44,8 +45,10 @@ export default function RegisterScreen() {
   const validatePassword = (password) => password.length >= 6;
   const validateConfirmPassword = (password, confirmPassword) =>
     password === confirmPassword;
-  const validateUsername = (username) => username.trim().length >= 3;
-  const validateName = (name) => name.trim().length >= 3;
+  const validateUsername = (username) =>
+    username.trim().length >= 3 && username.trim().length <= 15;
+  const validateName = (name) =>
+    name.trim().length >= 3 && name.trim().length <= 15;
   const validateUsernameUnique = async (username) => {
     try {
       const { data, error } = await supabase
@@ -91,6 +94,25 @@ export default function RegisterScreen() {
     setNameError("");
     setGeneralError("");
 
+    if (!validateName(name)) {
+      setNameError("Name must be between 3 and 15 characters.");
+      setLoading(false);
+      return;
+    }
+
+    if (!validateUsername(username)) {
+      setUsernameError("Username must be between 3 and 15 characters.");
+      setLoading(false);
+      return;
+    }
+
+    const isUnique = await validateUsernameUnique(username);
+    if (!isUnique) {
+      setUsernameError("This username is already taken.");
+      setLoading(false);
+      return;
+    }
+
     if (!validateEmail(email)) {
       setEmailError("Please enter a valid email.");
       setLoading(false);
@@ -103,23 +125,6 @@ export default function RegisterScreen() {
     }
     if (!validateConfirmPassword(password, confirmPassword)) {
       setConfirmPasswordError("Passwords do not match.");
-      setLoading(false);
-      return;
-    }
-    if (!validateUsername(username)) {
-      setUsernameError("Username must be at least 3 characters.");
-      setLoading(false);
-      return;
-    }
-    if (!validateName(name)) {
-      setNameError("Name must be at least 3 characters.");
-      setLoading(false);
-      return;
-    }
-
-    const isUnique = await validateUsernameUnique(username);
-    if (!isUnique) {
-      setUsernameError("This username is already taken.");
       setLoading(false);
       return;
     }
@@ -147,9 +152,9 @@ export default function RegisterScreen() {
         avatar: data.publicUrl,
       });
 
-      Alert.alert("Success", "Account created successfully!");
+      sucessNotification("Welcome to Life Core!");
       resetForm();
-      router.push("/home");
+      router.push("/profile");
     } catch (err) {
       setGeneralError(err.message);
       setLoading(false);

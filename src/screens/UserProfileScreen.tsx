@@ -3,7 +3,7 @@ import { View, ActivityIndicator } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { fetchUserProfile } from "@/lib/profileService";
 import { fetchUserPosts } from "@/lib/postsService";
-import { getCurrentUser } from "@/lib/authService";
+import { fetchCurrentUser } from "@/lib/authService";
 import UserInfo from "@/components/profile/UserInfo";
 import PostsDisplay from "@/components/profile/PostsDisplay";
 
@@ -15,7 +15,7 @@ const UserProfileScreen = () => {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    getCurrentUser().then(setCurrentUser);
+    fetchCurrentUser().then(setCurrentUser);
   }, []);
 
   useEffect(() => {

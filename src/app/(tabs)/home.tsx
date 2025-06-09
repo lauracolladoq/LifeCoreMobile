@@ -4,7 +4,7 @@ import { ActivityIndicator, View } from "react-native";
 import { checkAuthStatus } from "@/utils/authCheck";
 import { useRefreshOnFocus } from "@/utils/useRefreshOnFocus";
 import HomeScreen from "@/screens/HomeScreen";
-import { getCurrentUser } from "@/lib/authService";
+import { fetchCurrentUser } from "@/lib/authService";
 import Container from "@/components/common/Container";
 
 const Home = () => {
@@ -18,7 +18,7 @@ const Home = () => {
       setIsLoggedIn(loggedIn);
 
       if (loggedIn) {
-        const user = await getCurrentUser();
+        const user = await fetchCurrentUser();
         setCurrentUser(user);
       }
     } catch (error) {

@@ -215,7 +215,17 @@ const EditProfileScreen = () => {
       sucessNotification("Profile updated successfully!");
       router.back();
     } catch (error: any) {
-      setGeneralError(error.message || "Error updating profile");
+      // Check if error is related to duplicate username
+      if (
+        error.message &&
+        error.message.includes("duplicate key value violates unique constraint")
+      ) {
+        setUsernameError("Username already exists. Please choose another.");
+        setGeneralError(""); 
+      } else {
+        setGeneralError(error.message || "Error updating profile");
+        setUsernameError("");
+      }
     } finally {
       setSaving(false);
     }

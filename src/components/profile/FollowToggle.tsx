@@ -3,11 +3,31 @@ import { TouchableOpacity } from "react-native";
 import FollowIcon from "@/assets/icons/follow-icon";
 import FollowingIcon from "@/assets/icons/following-icon";
 import SemiBoldText from "../texts/SemiBoldText";
-import { checkIfFollowing, followUser, unfollowUser } from "@/lib/followService";
+import {
+  checkIfFollowing,
+  followUser,
+  unfollowUser,
+} from "@/lib/followService";
 
-const FollowToggle = ({ currentUser, profile }) => {
+const FollowToggle = ({ currentUser, profile, onFollowerChange }) => {
   const [isFollowing, setIsFollowing] = useState(false);
-  const [loading, setLoading] = useState(false);
+
+  const toggleFollow = async () => {
+    try {
+      if (isFollowing) {
+        await unfollowUser(currentUser.id, profile.id);
+        onFollowerChange(-1);
+        setIsFollowing(false);
+      } else {
+        await followUser(currentUser.id, profile.id);
+        onFollowerChange(1);
+        setIsFollowing(true);
+      }
+      setIsFollowing(!isFollowing);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     const checkStatus = async () => {
@@ -24,37 +44,14 @@ const FollowToggle = ({ currentUser, profile }) => {
     checkStatus();
   }, [currentUser?.id, profile?.id]);
 
-  const toggleFollow = async () => {
-    if (loading) return;
-
-    setLoading(true);
-
-    try {
-      if (isFollowing) {
-        await unfollowUser(currentUser.id, profile.id);
-        setIsFollowing(false);
-      } else {
-        await followUser(currentUser.id, profile.id);
-        setIsFollowing(true);
-      }
-    } catch (error) {
-      console.log("Error toggling follow status:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <TouchableOpacity
       onPress={toggleFollow}
-      disabled={loading}
       className="flex-row rounded-full px-4 py-2 items-center gap-2 justify-center"
       style={{ backgroundColor: "#FFFFFF90" }}
     >
       {isFollowing ? <FollowingIcon /> : <FollowIcon />}
-      <SemiBoldText>
-        {isFollowing ? "Following" : "Follow"}
-      </SemiBoldText>
+      <SemiBoldText>{isFollowing ? "Following" : "Follow"}</SemiBoldText>
     </TouchableOpacity>
   );
 };

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { View, Image } from "react-native";
-import LightText from "../texts/LightText";
 import Container from "../common/Container";
 import SemiBoldText from "../texts/SemiBoldText";
 import BoldText from "../texts/BoldText";
@@ -12,8 +11,13 @@ const UserInfo = ({ profile, currentUser }) => {
   const [followersCount, setFollowersCount] = useState(0);
   const [followingCount, setFollowingCount] = useState(0);
 
-  // If is the user is logged in and is not viewing their own profile
+  // If the current user is viewing their own profile, hide the follow toggle
   const showFollowToggle = currentUser && currentUser.id !== profile?.id;
+
+  // Update followers count when follow/unfollow action occurs
+  const handleFollowerChange = (delta) => {
+    setFollowersCount((prev) => prev + delta);
+  };
 
   useEffect(() => {
     const fetchCounts = async () => {
@@ -46,11 +50,14 @@ const UserInfo = ({ profile, currentUser }) => {
         />
         {showFollowToggle && (
           <View className="absolute right-4 top-4">
-            <FollowToggle currentUser={currentUser} profile={profile} />
+            <FollowToggle
+              currentUser={currentUser}
+              profile={profile}
+              onFollowerChange={handleFollowerChange}
+            />
           </View>
         )}
       </View>
-      {/* Followers and Following */}
       <View className="flex-row justify-around w-full -mt-8">
         <View className="items-center">
           <SemiBoldText>{followersCount}</SemiBoldText>
@@ -61,7 +68,6 @@ const UserInfo = ({ profile, currentUser }) => {
           <TinyText className="text-gray-400">Following</TinyText>
         </View>
       </View>
-      {/* Profile Info */}
       <Container className="items-center -mt-4 -mb-4">
         <BoldText>{profile?.name}</BoldText>
         <SemiBoldText className="text-gray-400">

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import CreatePostScreen from "@/screens/posts/CreatePostScreen";
 import AuthRequiredScreen from "@/screens/AuthRequiredScreen";
-import { ActivityIndicator, View } from "react-native";
 import { checkAuthStatus } from "@/utils/authCheck";
 import { useRefreshOnFocus } from "@/utils/useRefreshOnFocus";
+import PageLoader from "@/components/common/PageLoader";
 
 const CreatePost = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
@@ -28,9 +28,7 @@ const CreatePost = () => {
 
   if (loading) {
     return (
-      <View className="flex-1 justify-center items-center">
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
+      <PageLoader />
     );
   }
 

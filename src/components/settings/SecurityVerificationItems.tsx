@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Item from "@/components/settings/Item";
-import { View, ActivityIndicator } from "react-native";
+import { View } from "react-native";
 import EmailIcon from "@/assets/icons/email-icon";
-import PhoneVerificationIcon from "@/assets/icons/phone-verification-icon";
 import ResetPasswordIcon from "@/assets/icons/reset-password-icon";
-import PasswordIcon from "@/assets/icons/password-icon";
-import { resetPassword, sendVerificationEmail } from "@/lib/securityService";
+import { sendVerificationEmail } from "@/lib/securityService";
+import { router } from "expo-router";
 
 const SecurityVerificationItems = ({ email }: { email: string }) => {
   return (
@@ -19,7 +18,7 @@ const SecurityVerificationItems = ({ email }: { email: string }) => {
       <Item
         icon={<ResetPasswordIcon />}
         title="Reset password"
-        onPress={() => alert("Go to profile settings")}
+        onPress={() => router.push("/inProgress")}
         isLast
       />
     </View>

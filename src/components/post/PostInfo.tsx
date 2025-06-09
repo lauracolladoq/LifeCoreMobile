@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { View, Image, TouchableOpacity, ActivityIndicator } from "react-native";
+import { View, Image, TouchableOpacity } from "react-native";
 import CommentIcon from "@/assets/icons/comment-icon";
 import Like from "./Like";
 import { checkAuthStatus } from "@/utils/authCheck";
 import TinyText from "../texts/TinyText";
 import CommentModal from "../comment/CommentModal"; 
+import PageLoader from "../common/PageLoader";
 
 const PostInfo = ({ post }: { post: any }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -26,7 +27,7 @@ const PostInfo = ({ post }: { post: any }) => {
   }, []);
 
   if (!isAuthChecked) {
-    return <ActivityIndicator size="large" color="#000" />;
+    return <PageLoader />;
   }
 
   return (

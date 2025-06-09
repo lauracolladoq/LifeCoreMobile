@@ -1,9 +1,9 @@
 import AuthRequiredScreen from "@/screens/AuthRequiredScreen";
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, View } from "react-native";
 import { checkAuthStatus } from "@/utils/authCheck";
 import { useRefreshOnFocus } from "@/utils/useRefreshOnFocus";
 import SettingsScreen from "@/screens/SettingsScreen";
+import PageLoader from "@/components/common/PageLoader";
 
 const Settings = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
@@ -28,9 +28,7 @@ const Settings = () => {
 
   if (loading) {
     return (
-      <View className="flex-1 justify-center items-center">
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
+      <PageLoader />
     );
   }
 

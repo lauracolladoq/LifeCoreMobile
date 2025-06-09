@@ -1,3 +1,4 @@
+import { sucessNotification } from "@/utils/showNotification";
 import { supabase } from "./supabase";
 
 export const sendVerificationEmail = async (email: string) => {
@@ -13,8 +14,7 @@ export const sendVerificationEmail = async (email: string) => {
     console.log("Error sending verification email:", error.message);
     return { success: false, error: error.message };
   }
-
-  console.log("Verification email sent successfully.");
+  sucessNotification("Verification email sent successfully!");
 };
 
 export const resetPassword = async (email: string) => {

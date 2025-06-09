@@ -1,9 +1,9 @@
 import AuthRequiredScreen from "@/screens/AuthRequiredScreen";
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, View } from "react-native";
 import { checkAuthStatus } from "@/utils/authCheck";
 import { useRefreshOnFocus } from "@/utils/useRefreshOnFocus";
 import MyProfileScreen from "@/screens/MyProfileScreen";
+import PageLoader from "@/components/common/PageLoader";
 
 const Profile = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
@@ -27,11 +27,7 @@ const Profile = () => {
   }, []);
 
   if (loading) {
-    return (
-      <View className="flex-1 justify-center items-center">
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
+    return <PageLoader />;
   }
 
   return isLoggedIn ? <MyProfileScreen /> : <AuthRequiredScreen />;

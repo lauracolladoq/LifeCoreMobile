@@ -1,11 +1,11 @@
 import AuthRequiredScreen from "@/screens/AuthRequiredScreen";
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, View } from "react-native";
 import { checkAuthStatus } from "@/utils/authCheck";
 import { useRefreshOnFocus } from "@/utils/useRefreshOnFocus";
 import HomeScreen from "@/screens/HomeScreen";
 import { fetchCurrentUser } from "@/lib/authService";
 import Container from "@/components/common/Container";
+import PageLoader from "@/components/common/PageLoader";
 
 const Home = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
@@ -37,9 +37,7 @@ const Home = () => {
   // Show loading screen while checking authentication or fetching user data
   if (loading) {
     return (
-      <View className="flex-1 justify-center items-center">
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
+      <PageLoader />
     );
   }
 

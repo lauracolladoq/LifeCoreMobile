@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { View, FlatList, ActivityIndicator, RefreshControl } from "react-native";
+import { View, FlatList, RefreshControl } from "react-native";
 import { fetchPosts } from "../lib/postsService";
 import PostCard from "../components/post/PostCard";
 import SemiBoldText from "@/components/texts/SemiBoldText";
 import { useIsFocused } from "@react-navigation/native";
+import PageLoader from "@/components/common/PageLoader";
 
 const ExplorerScreen = () => {
   const [posts, setPosts] = useState([]);
@@ -49,9 +50,7 @@ const ExplorerScreen = () => {
 
   if (loading) {
     return (
-      <View className="flex-1 justify-center items-center">
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
+      <PageLoader />
     );
   }
 
@@ -68,7 +67,7 @@ const ExplorerScreen = () => {
       onEndReached={loadMorePosts}
       onEndReachedThreshold={0.5}
       ListFooterComponent={
-        isFetching && <ActivityIndicator size="small" color="#0000ff" />
+        isFetching && <PageLoader />
       }
       ListEmptyComponent={() => (
         <View className="flex-1 justify-center items-center">

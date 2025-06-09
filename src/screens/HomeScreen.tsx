@@ -1,11 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import {
-  View,
-  FlatList,
-  ActivityIndicator,
-  RefreshControl,
-  Text,
-} from "react-native";
+import { View, FlatList, RefreshControl } from "react-native";
 import { fetchFollowingPosts } from "../lib/postsService";
 import PostCard from "../components/post/PostCard";
 import SemiBoldText from "@/components/texts/SemiBoldText";
@@ -13,6 +7,7 @@ import { useIsFocused } from "@react-navigation/native";
 import { getFollowingCount } from "@/lib/followService";
 import Container from "@/components/common/Container";
 import TinyText from "@/components/texts/TinyText";
+import PageLoader from "@/components/common/PageLoader";
 
 const HomeScreen = ({ currentUser }) => {
   const [posts, setPosts] = useState([]);
@@ -78,7 +73,7 @@ const HomeScreen = ({ currentUser }) => {
   if (loading) {
     return (
       <View className="flex-1 justify-center items-center">
-        <ActivityIndicator size="large" color="#0000ff" />
+        <PageLoader />
       </View>
     );
   }
@@ -108,9 +103,7 @@ const HomeScreen = ({ currentUser }) => {
       }
       onEndReached={loadMorePosts}
       onEndReachedThreshold={0.5}
-      ListFooterComponent={
-        isFetching && <ActivityIndicator size="small" color="#0000ff" />
-      }
+      ListFooterComponent={isFetching && <PageLoader />}
       ListEmptyComponent={() => (
         <View className="flex-1 justify-center items-center">
           <SemiBoldText className="text-center">

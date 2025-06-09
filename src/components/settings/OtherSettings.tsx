@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Item from "@/components/settings/Item";
-import { View, ActivityIndicator } from "react-native";
+import { View } from "react-native";
 import NotificationIcon from "@/assets/icons/notification-icon";
 import CustomizationIcon from "@/assets/icons/customization-icon";
 import { router } from "expo-router";

@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import UserInfo from "@/components/settings/UserInfo";
 import { supabase } from "@/lib/supabase";
 import { fetchUserProfile } from "@/lib/profileService";
-import { View, ActivityIndicator } from "react-native";
-import BoldText from "@/components/texts/BoldText";
+import { View } from "react-native";
 import SemiBoldText from "@/components/texts/SemiBoldText";
 import SecurityVerificationItems from "@/components/settings/SecurityVerificationItems";
 import AboutLegalItems from "@/components/settings/AboutLegalItems";
@@ -13,6 +12,7 @@ import ContainerScroll from "@/components/common/ContainerScroll";
 
 import { useRouter } from "expo-router";
 import H1 from "@/components/texts/H1";
+import PageLoader from "@/components/common/PageLoader";
 
 const SettingsScreen = () => {
   const [profile, setProfile] = useState(null);
@@ -50,11 +50,7 @@ const SettingsScreen = () => {
   }, []);
 
   if (loading) {
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
+    return <PageLoader />;
   }
 
   const handleLogout = async () => {

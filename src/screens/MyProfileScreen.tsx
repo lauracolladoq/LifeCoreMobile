@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { View, ActivityIndicator } from "react-native";
+import { View } from "react-native";
 import PostsDisplay from "@/components/profile/PostsDisplay";
 import UserInfo from "@/components/profile/UserInfo";
 import { supabase } from "@/lib/supabase";
 import { formatPost } from "@/utils/formatPost";
 import { useRefreshOnFocus } from "@/utils/useRefreshOnFocus";
 import { fetchCurrentUser } from "@/lib/authService";
+import PageLoader from "@/components/common/PageLoader";
 
 const MyProfileScreen = () => {
   const [profile, setProfile] = useState(null);
@@ -59,9 +60,7 @@ const MyProfileScreen = () => {
 
   if (loading) {
     return (
-      <View className="flex-1 justify-center items-center">
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
+      <PageLoader />
     );
   }
 

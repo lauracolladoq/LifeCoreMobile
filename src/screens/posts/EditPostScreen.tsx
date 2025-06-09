@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Alert, ActivityIndicator } from "react-native";
+import { View, ActivityIndicator } from "react-native";
 import { supabase } from "@/lib/supabase";
 import CustomButton from "@/components/common/CustomButton";
 import ErrorText from "@/components/texts/ErrorText";
@@ -9,6 +9,7 @@ import { router } from "expo-router";
 import ImageInput from "@/components/common/ImageInput";
 import H1 from "@/components/texts/H1";
 import { sucessNotification } from "@/utils/showNotification";
+import PageLoader from "@/components/common/PageLoader";
 
 interface EditPostScreenProps {
   postId?: string;
@@ -86,7 +87,7 @@ const EditPostScreen: React.FC<EditPostScreenProps> = ({
     }
   };
 
-  if (loading) return <ActivityIndicator size="large" style={{ flex: 1 }} />;
+  if (loading) return <PageLoader />;
 
   return (
     <Container className="flex flex-col justify-start h-full gap-6">

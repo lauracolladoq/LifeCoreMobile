@@ -1,6 +1,6 @@
 import React from "react";
 import Item from "@/components/settings/Item";
-import { View, ActivityIndicator } from "react-native";
+import { View } from "react-native";
 import TermsConditionsIcon from "@/assets/icons/terms-conditions-icon";
 import AboutIcon from "@/assets/icons/about-icon";
 import { router } from "expo-router";

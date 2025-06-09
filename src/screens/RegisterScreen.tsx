@@ -56,7 +56,7 @@ export default function RegisterScreen() {
         .select("username");
 
       if (error) {
-        console.error("Error fetching usernames:", error);
+        console.log("Error fetching usernames:", error);
         return false;
       }
 
@@ -66,7 +66,7 @@ export default function RegisterScreen() {
       // Check if the provided username already exists
       return !usernames.includes(username);
     } catch (err) {
-      console.error("Unexpected error:", err);
+      console.log("Unexpected error:", err);
       return false;
     }
   };

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, ActivityIndicator } from "react-native";
+import { View } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { fetchUserProfile } from "@/lib/profileService";
 import { fetchUserPosts } from "@/lib/postsService";
 import { fetchCurrentUser } from "@/lib/authService";
 import UserInfo from "@/components/profile/UserInfo";
 import PostsDisplay from "@/components/profile/PostsDisplay";
+import PageLoader from "@/components/common/PageLoader";
 
 const UserProfileScreen = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -39,7 +40,7 @@ const UserProfileScreen = () => {
   }, [id]);
 
   if (loading) {
-    return <ActivityIndicator size="large" color="#000" />;
+    <PageLoader />;
   }
 
   return (

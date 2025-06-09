@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Alert, ActivityIndicator } from "react-native";
+import { View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { supabase } from "@/lib/supabase";
 import CustomButton from "@/components/common/CustomButton";
@@ -20,6 +20,7 @@ import { router } from "expo-router";
 import { fetchUserProfile } from "@/lib/profileService";
 import H1 from "@/components/texts/H1";
 import { sucessNotification } from "@/utils/showNotification";
+import PageLoader from "@/components/common/PageLoader";
 
 const BUCKET_AVATAR = EXPO_POSTS_BUCKET_PROFILE_PICTURES;
 const BUCKET_BANNER = EXPO_POSTS_BUCKET_BANNERS;
@@ -129,13 +130,17 @@ const EditProfileScreen = () => {
     setBioError("");
     setGeneralError("");
 
-    if (!name.trim() || name.trim().length < 3) {
-      setNameError("Name must be at least 3 characters.");
+    if (!name.trim() || name.trim().length < 3 || name.trim().length > 15) {
+      setNameError("Name must be between 3 and 15 characters.");
       valid = false;
     }
 
-    if (!username.trim() || username.trim().length < 3) {
-      setUsernameError("Username must be at least 3 characters.");
+    if (
+      !username.trim() ||
+      username.trim().length < 3 ||
+      username.trim().length > 15
+    ) {
+      setUsernameError("Username must be between 3 and 15 characters.");
       valid = false;
     }
 
@@ -213,7 +218,7 @@ const EditProfileScreen = () => {
       if (error) throw error;
 
       sucessNotification("Profile updated successfully!");
-      router.back();
+      router.push("/profile");
     } catch (error: any) {
       // Check if error is related to duplicate username
       if (
@@ -221,7 +226,7 @@ const EditProfileScreen = () => {
         error.message.includes("duplicate key value violates unique constraint")
       ) {
         setUsernameError("Username already exists. Please choose another.");
-        setGeneralError(""); 
+        setGeneralError("");
       } else {
         setGeneralError(error.message || "Error updating profile");
         setUsernameError("");
@@ -231,7 +236,7 @@ const EditProfileScreen = () => {
     }
   };
 
-  if (loading) return <ActivityIndicator size="large" style={{ flex: 1 }} />;
+  if (loading) return <PageLoader />;
 
   return (
     <ContainerScroll>
@@ -265,7 +270,6 @@ const EditProfileScreen = () => {
             onChangeText={setBio}
             placeholder="Short bio"
             multiline
-            maxLength={150}
             label="Bio"
           />
           {bioError ? <ErrorText>{bioError}</ErrorText> : null}

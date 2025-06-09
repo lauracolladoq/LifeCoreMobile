@@ -89,9 +89,15 @@ export default function LoginScreen() {
         <H1>Sign in to your account</H1>
         <View className="flex-row">
           <LightText className="mr-2">Don't have an account yet?</LightText>
-          <Link href="/auth/register">
+          <TouchableOpacity
+            onPress={() => {
+              resetForm();
+              router.push("/auth/register");
+            }}
+            className="flex-row items-center"
+          >
             <SemiBoldText className="color-sky-300">Register</SemiBoldText>
-          </Link>
+          </TouchableOpacity>
         </View>
       </View>
       {/* Input fields */}

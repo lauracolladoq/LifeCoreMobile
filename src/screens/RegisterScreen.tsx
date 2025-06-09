@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Alert, AppState, TouchableOpacity } from "react-native";
+import { View, AppState, TouchableOpacity } from "react-native";
 import { supabase } from "../lib/supabase";
 import CustomButton from "../components/common/CustomButton";
 import LightText from "@/components/texts/LightText";
@@ -171,9 +171,15 @@ export default function RegisterScreen() {
         <H1>Create an account</H1>
         <View className="flex-row">
           <LightText className="mr-2">Already have an account?</LightText>
-          <Link href="/auth/login">
+          <TouchableOpacity
+            onPress={() => {
+              resetForm();
+              router.push("/auth/login");
+            }}
+            className="flex-row items-center"
+          >
             <SemiBoldText className="color-sky-300">Log in</SemiBoldText>
-          </Link>
+          </TouchableOpacity>
         </View>
       </View>
       {/* Input fields */}

@@ -25,8 +25,10 @@ const UserProfileScreen = () => {
 
       setLoading(true);
       try {
-        const userProfile = await fetchUserProfile(id);
-        const userPosts = await fetchUserPosts(id);
+        const [userProfile, userPosts] = await Promise.all([
+          fetchUserProfile(id),
+          fetchUserPosts(id),
+        ]);
         setProfile(userProfile);
         setPosts(userPosts);
       } catch (error) {
@@ -40,14 +42,12 @@ const UserProfileScreen = () => {
   }, [id]);
 
   if (loading) {
-    <PageLoader />;
+    return <PageLoader />;
   }
 
   return (
     <View className="flex-1">
-      {profile && (
-        <UserInfo profile={profile} currentUser={currentUser} />
-      )}
+      {profile && <UserInfo profile={profile} currentUser={currentUser} />}
       <PostsDisplay posts={posts} />
     </View>
   );

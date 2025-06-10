@@ -1,4 +1,4 @@
-import InProgessScreen from "@/screens/InProgressScreen";
+import InProgessScreen from "@/screens/assets/InProgressScreen";
 import React from "react";
 
 const InProgress = () => {

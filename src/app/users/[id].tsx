@@ -1,4 +1,4 @@
-import UserProfileScreen from "@/screens/UserProfileScreen";
+import UserProfileScreen from "@/screens/profile/UserProfileScreen";
 import React from "react";
 
 const UserProfile = () => {

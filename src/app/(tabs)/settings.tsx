@@ -1,8 +1,8 @@
-import AuthRequiredScreen from "@/screens/AuthRequiredScreen";
+import AuthRequiredScreen from "@/screens/assets/AuthRequiredScreen";
 import React, { useEffect, useState } from "react";
 import { checkAuthStatus } from "@/utils/authCheck";
 import { useRefreshOnFocus } from "@/utils/useRefreshOnFocus";
-import SettingsScreen from "@/screens/SettingsScreen";
+import SettingsScreen from "@/screens/tabs/SettingsScreen";
 import PageLoader from "@/components/common/PageLoader";
 
 const Settings = () => {

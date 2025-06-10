@@ -1,8 +1,8 @@
-import AuthRequiredScreen from "@/screens/AuthRequiredScreen";
+import AuthRequiredScreen from "@/screens/assets/AuthRequiredScreen";
 import React, { useEffect, useState } from "react";
 import { checkAuthStatus } from "@/utils/authCheck";
 import { useRefreshOnFocus } from "@/utils/useRefreshOnFocus";
-import MyProfileScreen from "@/screens/MyProfileScreen";
+import MyProfileScreen from "@/screens/profile/MyProfileScreen";
 import PageLoader from "@/components/common/PageLoader";
 
 const Profile = () => {

@@ -1,4 +1,4 @@
-import EditProfileScreen from '@/screens/EditProfileScreen';
+import EditProfileScreen from '@/screens/profile/EditProfileScreen';
 import React from 'react';
 
 const Edit = () => {

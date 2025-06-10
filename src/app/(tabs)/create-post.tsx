@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CreatePostScreen from "@/screens/posts/CreatePostScreen";
-import AuthRequiredScreen from "@/screens/AuthRequiredScreen";
+import AuthRequiredScreen from "@/screens/assets/AuthRequiredScreen";
 import { checkAuthStatus } from "@/utils/authCheck";
 import { useRefreshOnFocus } from "@/utils/useRefreshOnFocus";
 import PageLoader from "@/components/common/PageLoader";

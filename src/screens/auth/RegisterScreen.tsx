@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, AppState, TouchableOpacity } from "react-native";
-import { supabase } from "../lib/supabase";
-import CustomButton from "../components/common/CustomButton";
+import { supabase } from "@/lib/supabase";
+import CustomButton from "@/components/common/CustomButton";
 import LightText from "@/components/texts/LightText";
 import ErrorText from "@/components/texts/ErrorText";
 import CustomInput from "@/components/common/CustomInput";

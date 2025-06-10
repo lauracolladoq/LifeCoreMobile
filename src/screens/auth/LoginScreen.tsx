@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { View, AppState, TouchableOpacity } from "react-native";
-import { supabase } from "../lib/supabase";
-import CustomButton from "../components/common/CustomButton";
+import { supabase } from "@/lib/supabase";
+import CustomButton from "@/components/common/CustomButton";
 import LightText from "@/components/texts/LightText";
 import ErrorText from "@/components/texts/ErrorText";
-import Container from "@/components/common/Container";
 import CustomInput from "@/components/common/CustomInput";
 import EmailIcon from "@/assets/icons/email-icon";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import SemiBoldText from "@/components/texts/SemiBoldText";
 import PasswordIcon from "@/assets/icons/password-icon";
 import H1 from "@/components/texts/H1";

@@ -2,7 +2,7 @@ import AuthRequiredScreen from "@/screens/assets/AuthRequiredScreen";
 import React, { useEffect, useState } from "react";
 import { checkAuthStatus } from "@/utils/authCheck";
 import { useRefreshOnFocus } from "@/utils/useRefreshOnFocus";
-import HomeScreen from "@/screens/HomeScreen";
+import HomeScreen from "@/screens/tabs/HomeScreen";
 import { fetchCurrentUser } from "@/lib/authService";
 import Container from "@/components/common/Container";
 import PageLoader from "@/components/common/PageLoader";

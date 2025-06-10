@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { View, FlatList, RefreshControl } from "react-native";
-import { fetchFollowingPosts } from "../lib/postsService";
-import PostCard from "../components/post/PostCard";
+import PostCard from "@/components/post/PostCard";
 import SemiBoldText from "@/components/texts/SemiBoldText";
 import { useIsFocused } from "@react-navigation/native";
 import { getFollowingCount } from "@/lib/followService";
 import Container from "@/components/common/Container";
 import TinyText from "@/components/texts/TinyText";
 import PageLoader from "@/components/common/PageLoader";
+import { fetchFollowingPosts } from "@/lib/postsService";
 
 const HomeScreen = ({ currentUser }) => {
   const [posts, setPosts] = useState([]);

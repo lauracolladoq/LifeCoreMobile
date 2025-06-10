@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { View, FlatList, RefreshControl } from "react-native";
-import { fetchPosts } from "../lib/postsService";
-import PostCard from "../components/post/PostCard";
+import PostCard from "@/components/post/PostCard";
 import SemiBoldText from "@/components/texts/SemiBoldText";
 import { useIsFocused } from "@react-navigation/native";
 import PageLoader from "@/components/common/PageLoader";
+import { fetchPosts } from "@/lib/postsService";
 
 const ExplorerScreen = () => {
   const [posts, setPosts] = useState([]);
